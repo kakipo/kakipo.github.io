@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[diaspora]]></title>
-  <link href="http://kakipo.github.io/atom.xml" rel="self"/>
+  <title><![CDATA[Category: Elasticsearch | diaspora]]></title>
+  <link href="http://kakipo.github.io/blog/categories/elasticsearch/atom.xml" rel="self"/>
   <link href="http://kakipo.github.io/"/>
   <updated>2014-02-01T22:41:00+09:00</updated>
   <id>http://kakipo.github.io/</id>
@@ -10,6 +10,7 @@
     <name><![CDATA[kakipo]]></name>
     
   </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
 
   
   <entry>
@@ -69,18 +70,16 @@ fluent-plugin-elasticsearch もその形式で index を設定します。</p>
 
 <p>その際には以下のような <code>ProcessClusterEventTimeoutException</code> がログに追記されます。</p>
 
-<figure class='code'><figcaption><span>/var/log/elasticsearch/elasticsearch.log</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='text'><span class='line'>[2014-01-31 11:57:46,255][DEBUG][action.admin.indices.create] [Mace, Gideon] [logstash-2013.06.13] failed to create
-</span><span class='line'>org.elasticsearch.cluster.metadata.ProcessClusterEventTimeoutException: failed to process cluster event (create-index [logstash-2013.06.13], cause [auto(bulk api)]) within 30s
-</span><span class='line'>    at org.elasticsearch.cluster.service.InternalClusterService$2$1.run(InternalClusterService.java:239)
-</span><span class='line'>    at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1146)
-</span><span class='line'>    (...)
-</span></code></pre></td></tr></table></div></figure>
+<p>``` text /var/log/elasticsearch/elasticsearch.log
+[2014-01-31 11:57:46,255][DEBUG][action.admin.indices.create] [Mace, Gideon] [logstash-2013.06.13] failed to create
+org.elasticsearch.cluster.metadata.ProcessClusterEventTimeoutException: failed to process cluster event (create-index [logstash-2013.06.13], cause [auto(bulk api)]) within 30s</p>
 
+<pre><code>at org.elasticsearch.cluster.service.InternalClusterService$2$1.run(InternalClusterService.java:239)
+at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1146)
+(...)
+</code></pre>
+
+<p>```</p>
 
 <p>また、後述のように Elasticsearch では処理キュー数が閾値を超えた場合、
 後続の処理を破棄される設定となっているために、index の作成自体がなされない可能性があります。</p>
@@ -112,24 +111,24 @@ fluent-plugin-elasticsearch もその形式で index を設定します。</p>
 
 <p>Thread Pool のキューサイズを変更します。</p>
 
-<figure class='code'><figcaption><span>/etc/elasticsearch/elasticsearch.yml</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='yaml'><span class='line'><span class="c1"># queue_size は実行するスレッドが存在せずペンディングされたリクエスト</span>
-</span><span class='line'><span class="c1"># のキューの数の設定に使用します。キューが満杯の状態で</span>
-</span><span class='line'><span class="c1"># リクエストが来た際には、そのリクエストは破棄されます。</span>
-</span><span class='line'><span class="c1"># 制限をしたくない場合には -1 を設定してください。</span>
-</span><span class='line'><span class="l-Scalar-Plain">threadpool.index.queue_size</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">-1</span> <span class="c1"># デフォルト 200</span>
-</span><span class='line'><span class="l-Scalar-Plain">threadpool.bulk.queue_size</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">-1</span> <span class="c1"># デフォルト 50</span>
-</span><span class='line'><span class="c1"># threadpool.search.queue_size: -1</span>
-</span><span class='line'><span class="c1"># threadpool.get.queue_size: -1</span>
-</span></code></pre></td></tr></table></div></figure>
+<p>``` yaml /etc/elasticsearch/elasticsearch.yml</p>
 
+<h1>queue_size は実行するスレッドが存在せずペンディングされたリクエスト</h1>
+
+<h1>のキューの数の設定に使用します。キューが満杯の状態で</h1>
+
+<h1>リクエストが来た際には、そのリクエストは破棄されます。</h1>
+
+<h1>制限をしたくない場合には -1 を設定してください。</h1>
+
+<p>threadpool.index.queue_size: -1 # デフォルト 200
+threadpool.bulk.queue_size: -1 # デフォルト 50</p>
+
+<h1>threadpool.search.queue_size: -1</h1>
+
+<h1>threadpool.get.queue_size: -1</h1>
+
+<p>```</p>
 
 <p><em>注) サーバのスペック、処理したいデータ量に応じて設定してください。</em>
 <em>不適切な設定はメモリの過剰消費によるメモリ不足やスラッシングの原因となる可能性があります。</em></p>
@@ -153,24 +152,22 @@ fluent-plugin-elasticsearch もその形式で index を設定します。</p>
 
 <p>次のログは日付型のフィールドに空文字を設定しようとした場合に出力されました。</p>
 
-<figure class='code'><figcaption><span>/var/log/elasticsearch/elasticsearch.log</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='text'><span class='line'>[2014-01-31 12:39:07,907][DEBUG][action.bulk              ] [Nicholas Scratch] [logstash-2013.09.18][1] failed     to execute bulk item (index) index {[logstash-2013.09.18][xxxx_type][xxxxx_id_0000], source[{....}]}
-</span><span class='line'>org.elasticsearch.index.mapper.MapperParsingException: failed to parse [xxx_day]
-</span><span class='line'>        at org.elasticsearch.index.mapper.core.AbstractFieldMapper.parse(AbstractFieldMapper.java:416)
-</span><span class='line'>(...)
-</span><span class='line'>Caused by: org.elasticsearch.index.mapper.MapperParsingException: failed to parse date field [], tried both date format [dateOptionalTime], and timestamp number with locale []
-</span><span class='line'>        at org.elasticsearch.index.mapper.core.DateFieldMapper.parseStringValue(DateFieldMapper.java:487)
-</span><span class='line'>        at
-</span><span class='line'>(...)
-</span></code></pre></td></tr></table></div></figure>
+<p>``` text /var/log/elasticsearch/elasticsearch.log
+[2014-01-31 12:39:07,907][DEBUG][action.bulk              ] [Nicholas Scratch] [logstash-2013.09.18][1] failed     to execute bulk item (index) index {[logstash-2013.09.18][xxxx_type][xxxxx_id_0000], source[{&hellip;.}]}
+org.elasticsearch.index.mapper.MapperParsingException: failed to parse [xxx_day]</p>
 
+<pre><code>    at org.elasticsearch.index.mapper.core.AbstractFieldMapper.parse(AbstractFieldMapper.java:416)
+</code></pre>
+
+<p>(&hellip;)
+Caused by: org.elasticsearch.index.mapper.MapperParsingException: failed to parse date field [], tried both date format [dateOptionalTime], and timestamp number with locale []</p>
+
+<pre><code>    at org.elasticsearch.index.mapper.core.DateFieldMapper.parseStringValue(DateFieldMapper.java:487)
+    at
+</code></pre>
+
+<p>(&hellip;)
+```</p>
 
 <h4>対策</h4>
 
@@ -178,24 +175,19 @@ fluent-plugin-elasticsearch もその形式で index を設定します。</p>
 <code>default-mapping.json</code> という設定ファイルを作成することで、
 デフォルトのマッピング設定を変更することが可能です。</p>
 
-<figure class='code'><figcaption><span>/etc/elasticsearch/default-mapping.json</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='json'><span class='line'><span class="p">{</span>
-</span><span class='line'>    <span class="nt">&quot;_default_&quot;</span> <span class="p">:</span> <span class="p">{</span>
-</span><span class='line'>        <span class="nt">&quot;properties&quot;</span> <span class="p">:</span> <span class="p">{</span>
-</span><span class='line'>            <span class="nt">&quot;foo&quot;</span> <span class="p">:</span> <span class="p">{</span><span class="nt">&quot;type&quot;</span> <span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">},</span>
-</span><span class='line'>            <span class="nt">&quot;bar&quot;</span> <span class="p">:</span> <span class="p">{</span><span class="nt">&quot;type&quot;</span> <span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">}</span>
-</span><span class='line'>        <span class="p">}</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
+<p>``` json /etc/elasticsearch/default-mapping.json
+{</p>
 
+<pre><code>"_default_" : {
+    "properties" : {
+        "foo" : {"type" : "string"},
+        "bar" : {"type" : "string"}
+    }
+}
+</code></pre>
+
+<p>}
+```</p>
 
 <h4>参考</h4>
 
@@ -257,25 +249,22 @@ Kibana が生成するクエリの問題です。</p>
 
 <p>Kibana にて以下のエラーが発生する。</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='text'><span class='line'>Error Could not contact Elasticsearch at http://x.x.x.x:9200. Please ensure that Elasticsearch is reachable from your system.
-</span></code></pre></td></tr></table></div></figure>
-
+<p><code>text
+Error Could not contact Elasticsearch at http://x.x.x.x:9200. Please ensure that Elasticsearch is reachable from your system.
+</code></p>
 
 <p>また、 Elasticsearch のログには以下のようなエラーが記録される。</p>
 
-<figure class='code'><figcaption><span>/var/log/elasticsearch/elasticsearch.log</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='text'><span class='line'>[2014-01-31 13:58:28,444][WARN ][http.netty               ] [Nicholas Scratch] Caught exception while handling client http traffic, closing connection [id: 0xad362931, /x.x.x.x:36389 =&gt; /x.x.x.x:9200]
-</span><span class='line'>org.elasticsearch.common.netty.handler.codec.frame.TooLongFrameException: An HTTP line is larger than 4096 bytes.
-</span><span class='line'>        at org.elasticsearch.common.netty.handler.codec.http.HttpMessageDecoder.readLine(HttpMessageDecoder.java:642)
-</span><span class='line'>        at org.elasticsearch.common.netty.handler.codec.http.HttpMessageDecoder.decode(HttpMessageDecoder.java:182)
-</span><span class='line'>        (...)
-</span></code></pre></td></tr></table></div></figure>
+<p>``` text /var/log/elasticsearch/elasticsearch.log
+[2014-01-31 13:58:28,444][WARN ][http.netty               ] [Nicholas Scratch] Caught exception while handling client http traffic, closing connection [id: 0xad362931, /x.x.x.x:36389 => /x.x.x.x:9200]
+org.elasticsearch.common.netty.handler.codec.frame.TooLongFrameException: An HTTP line is larger than 4096 bytes.</p>
 
+<pre><code>    at org.elasticsearch.common.netty.handler.codec.http.HttpMessageDecoder.readLine(HttpMessageDecoder.java:642)
+    at org.elasticsearch.common.netty.handler.codec.http.HttpMessageDecoder.decode(HttpMessageDecoder.java:182)
+    (...)
+</code></pre>
+
+<p>```</p>
 
 <h3>原因</h3>
 
@@ -285,12 +274,10 @@ Kibana が生成するクエリの問題です。</p>
 
 <p>Elasticsearch の <code>max_initial_line_length</code> を設定します。</p>
 
-<figure class='code'><figcaption><span>/etc/elasticsearch/elasticsearch.yml</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='yaml'><span class='line'><span class="l-Scalar-Plain">(...)</span>
-</span><span class='line'><span class="l-Scalar-Plain">http.max_initial_line_length</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">100k</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<p><code>yaml /etc/elasticsearch/elasticsearch.yml
+(...)
+http.max_initial_line_length: 100k
+</code></p>
 
 <h4>参考</h4>
 
@@ -325,55 +312,6 @@ Kibana が生成するクエリの問題です。</p>
 <li><a href="http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/mapping-object-type.html">Object Type [0.90]</a></li>
 </ul>
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[RDBMS と NoSQL の使いわけかた]]></title>
-    <link href="http://kakipo.github.io/blog/2013/12/02/how-to-pick-rdbms-and-nosql/"/>
-    <updated>2013-12-02T19:26:00+09:00</updated>
-    <id>http://kakipo.github.io/blog/2013/12/02/how-to-pick-rdbms-and-nosql</id>
-    <content type="html"><![CDATA[<p>RDBMS と NoSQL の使いわけの基準について。</p>
-
-<p>議論は出尽くして擦り切れた感があるのだけれども、
-ぼく自身の経験から得られた基準をまとめておこうと思う。</p>
-
-<p>適材適所という言葉に従うための基準。</p>
-
-<ul>
-<li>汎用性を考えるとやっぱり RDBMS に分がある
-
-<ul>
-<li>どちらを使うべきか迷うなら RDBMS で良い</li>
-<li>枯れた技術だし、実績も情報もたくさんある</li>
-<li>石を投げれば SQL マスターやパフォチューに苦労した先人達に当たる</li>
-</ul>
-</li>
-<li>NoSQL と相性のいいユースケース
-
-<ul>
-<li>使いすてのアプリケーション
-
-<ul>
-<li>プロトタイプ</li>
-<li>キャンペーン</li>
-</ul>
-</li>
-<li>モデル（コレクション）の数が少ない
-
-<ul>
-<li>10 個くらいが閾値</li>
-<li>キャッシュストレージ</li>
-<li>ログストレージ</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-
-
-<p>「スキーマデザイン考えなくて良い！ひゃっほう！」ってな考えの基での NoSQL の採用は問題の先送りにしかならず、
-熱力学第二法則よろしく日々データモデルは複雑化していき、つぎはぎだらけのシステムがあなたのプライベートを殺す。</p>
 ]]></content>
   </entry>
   

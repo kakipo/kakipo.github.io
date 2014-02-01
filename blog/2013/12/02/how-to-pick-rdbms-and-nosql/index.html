@@ -1,0 +1,165 @@
+
+<!DOCTYPE HTML>
+<html lang="en-GB">
+<head>
+	<meta charset="utf-8">
+	<title>RDBMS と NoSQL の使いわけかた  | diaspora</title>
+
+	<meta name="author" content="kakipo">
+
+<meta name="description" content="RDBMS と NoSQL の使いわけの基準について。 議論は出尽くして擦り切れた感があるのだけれども、
+ぼく自身の経験から得られた基準をまとめておこうと思う。 適材適所という言葉に従うための基準。 汎用性を考えるとやっぱり RDBMS に分がある どちらを使うべきか迷うなら RDBMS で良い &hellip;"> <meta name="keywords" content="">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="diaspora" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	
+
+</head>
+
+
+
+<body>
+	<header id="header" class="inner"><h1><a href="/">diaspora</a></h1>
+<span class="tagline">Where I End and You Begin</span>
+<!-- <nav id="main-nav"><ul>
+	<li><a href="/about">About</a></li>
+	<li><a href="/archives">Archives</a></li>
+	<li><a href="/contact">Contact</a></li>
+</ul>
+</nav> -->
+<!-- <nav id="mobile-nav"> -->
+<!-- 	<div class="alignleft menu"> -->
+<!-- 		<a class="button">Menu</a> -->
+<!-- 		<div class="container"><ul>
+	<li><a href="/about">About</a></li>
+	<li><a href="/archives">Archives</a></li>
+	<li><a href="/contact">Contact</a></li>
+</ul>
+</div> -->
+<!-- 	</div> -->
+<!-- </nav> -->
+
+
+</header>
+
+	<div id="content" class="inner"><article class="post">
+	<header>
+		<h2 class="title">RDBMS と NoSQL の使いわけかた</h2>
+		<div class="meta date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-02T19:26:00+09:00" pubdate data-updated="true">Dec 2<span>nd</span>, 2013</time></div>
+	</header>
+	<div class="entry-content"><p>RDBMS と NoSQL の使いわけの基準について。</p>
+
+<p>議論は出尽くして擦り切れた感があるのだけれども、
+ぼく自身の経験から得られた基準をまとめておこうと思う。</p>
+
+<p>適材適所という言葉に従うための基準。</p>
+
+<ul>
+<li>汎用性を考えるとやっぱり RDBMS に分がある
+
+<ul>
+<li>どちらを使うべきか迷うなら RDBMS で良い</li>
+<li>枯れた技術だし、実績も情報もたくさんある</li>
+<li>石を投げれば SQL マスターやパフォチューに苦労した先人達に当たる</li>
+</ul>
+</li>
+<li>NoSQL と相性のいいユースケース
+
+<ul>
+<li>使いすてのアプリケーション
+
+<ul>
+<li>プロトタイプ</li>
+<li>キャンペーン</li>
+</ul>
+</li>
+<li>モデル（コレクション）の数が少ない
+
+<ul>
+<li>10 個くらいが閾値</li>
+<li>キャッシュストレージ</li>
+<li>ログストレージ</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+
+<p>「スキーマデザイン考えなくて良い！ひゃっほう！」ってな考えの基での NoSQL の採用は問題の先送りにしかならず、
+熱力学第二法則よろしく日々データモデルは複雑化していき、つぎはぎだらけのシステムがあなたのプライベートを殺す。</p>
+</div>
+
+</article>
+
+	
+	<div class="share">
+	  <!-- <ul> -->
+	  <!--   <li>
+  <a href="https://twitter.com/intent/tweet?text=RDBMS と NoSQL の使いわけかた by @kakipo&url=http://kakipo.github.io/blog/2013/12/02/how-to-pick-rdbms-and-nosql/" title="Share RDBMS と NoSQL の使いわけかた on Twitter">
+    <img src="/images/social/twitter.png" />
+  </a>
+</li>
+ -->
+	  <!--   <li>
+  <a href="https://www.facebook.com/sharer.php?u=http://kakipo.github.io/blog/2013/12/02/how-to-pick-rdbms-and-nosql/" title="Share RDBMS と NoSQL の使いわけかた on Facebook">
+    <img src="/images/social/facebook.png" />
+  </a>
+</li>
+ -->
+	  <!--   <li>
+  <a href="https://plus.google.com/share?url=http://kakipo.github.io/blog/2013/12/02/how-to-pick-rdbms-and-nosql/" title="Share RDBMS と NoSQL の使いわけかた on Google Plus">
+    <img src="/images/social/google.png" />
+  </a>
+</li>
+ -->
+	  <!-- </ul> -->
+	</div>
+
+
+
+</div>
+	<footer id="footer" class="inner"><br>
+<br>
+<br>
+<br>
+&copy; 2014
+
+    kakipo
+
+</footer>
+	<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/hyphenator.js"></script>
+
+
+
+
+
+
+
+</body>
+<script>
+  $(document).ready(function() {
+  // Make images center
+  $('p:has(img)').css('text-align', 'center');
+  });
+</script>
+</html>

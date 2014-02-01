@@ -1,23 +1,83 @@
-<?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[diaspora]]></title>
-  <link href="http://kakipo.github.io/atom.xml" rel="self"/>
-  <link href="http://kakipo.github.io/"/>
-  <updated>2014-02-01T22:41:00+09:00</updated>
-  <id>http://kakipo.github.io/</id>
-  <author>
-    <name><![CDATA[kakipo]]></name>
-    
-  </author>
+<!DOCTYPE HTML>
+<html lang="en-GB">
+<head>
+	<meta charset="utf-8">
+	<title>Where I End and You Begin  | diaspora</title>
+
+	<meta name="author" content="kakipo">
+
+<meta name="description" content="概要 fluentd を利用してサービスの情報を収集し、Kibana で分析したい
+これまでの過去データを一度に放り込みたい
+データの件数が合わない
+Kibana でエラーが発生する 背景 長い長いミーティングに疲れ、集中力を擦り減らしたアナタは
+無意識のうちにブラウザを起動していました。 &hellip;"> <meta name="keywords" content="">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="diaspora" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	
+
+</head>
+
+
+
+<body>
+	<header id="header" class="inner"><h1><a href="/">diaspora</a></h1>
+<span class="tagline">Where I End and You Begin</span>
+<!-- <nav id="main-nav"><ul>
+	<li><a href="/about">About</a></li>
+	<li><a href="/archives">Archives</a></li>
+	<li><a href="/contact">Contact</a></li>
+</ul>
+</nav> -->
+<!-- <nav id="mobile-nav"> -->
+<!-- 	<div class="alignleft menu"> -->
+<!-- 		<a class="button">Menu</a> -->
+<!-- 		<div class="container"><ul>
+	<li><a href="/about">About</a></li>
+	<li><a href="/archives">Archives</a></li>
+	<li><a href="/contact">Contact</a></li>
+</ul>
+</div> -->
+<!-- 	</div> -->
+<!-- </nav> -->
+
+
+</header>
+
+	<div id="content" class="inner">
+
+
+    <article class="post">
+	<header>
+		<h2 class="title">
+			
+			<a href="/blog/2014/02/01/trouble-with-fluentd-and-elasticsearch/">
+			
+				大量のデータを Fluentd から Elasticsearch へ転送する際に困ったこと</a>
+		</h2>
+		<div class="meta date">
+
+
+
+
+
+
+
 
   
-  <entry>
-    <title type="html"><![CDATA[大量のデータを fluentd から Elasticsearch へ転送する際に困ったこと]]></title>
-    <link href="http://kakipo.github.io/blog/2014/02/01/trouble-with-fluentd-and-elasticsearch/"/>
-    <updated>2014-02-01T19:42:15+09:00</updated>
-    <id>http://kakipo.github.io/blog/2014/02/01/trouble-with-fluentd-and-elasticsearch</id>
-    <content type="html"><![CDATA[<h1>概要</h1>
+
+
+<time datetime="2014-02-01T19:42:15+09:00" pubdate data-updated="true">Feb 1<span>st</span>, 2014</time></div>
+	</header>
+	<div class="entry-content">
+		<h1>概要</h1>
 
 <ul>
 <li>fluentd を利用してサービスの情報を収集し、Kibana で分析したい</li>
@@ -325,15 +385,38 @@ Kibana が生成するクエリの問題です。</p>
 <li><a href="http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/mapping-object-type.html">Object Type [0.90]</a></li>
 </ul>
 
-]]></content>
-  </entry>
+
+		
+		
+	</div>
+
+</article>
+
+
+    <article class="post">
+	<header>
+		<h2 class="title">
+			
+			<a href="/blog/2013/12/02/how-to-pick-rdbms-and-nosql/">
+			
+				RDBMS と NoSQL の使いわけかた</a>
+		</h2>
+		<div class="meta date">
+
+
+
+
+
+
+
+
   
-  <entry>
-    <title type="html"><![CDATA[RDBMS と NoSQL の使いわけかた]]></title>
-    <link href="http://kakipo.github.io/blog/2013/12/02/how-to-pick-rdbms-and-nosql/"/>
-    <updated>2013-12-02T19:26:00+09:00</updated>
-    <id>http://kakipo.github.io/blog/2013/12/02/how-to-pick-rdbms-and-nosql</id>
-    <content type="html"><![CDATA[<p>RDBMS と NoSQL の使いわけの基準について。</p>
+
+
+<time datetime="2013-12-02T19:26:00+09:00" pubdate data-updated="true">Dec 2<span>nd</span>, 2013</time></div>
+	</header>
+	<div class="entry-content">
+		<p>RDBMS と NoSQL の使いわけの基準について。</p>
 
 <p>議論は出尽くして擦り切れた感があるのだけれども、
 ぼく自身の経験から得られた基準をまとめておこうと思う。</p>
@@ -374,7 +457,41 @@ Kibana が生成するクエリの問題です。</p>
 
 <p>「スキーマデザイン考えなくて良い！ひゃっほう！」ってな考えの基での NoSQL の採用は問題の先送りにしかならず、
 熱力学第二法則よろしく日々データモデルは複雑化していき、つぎはぎだらけのシステムがあなたのプライベートを殺す。</p>
-]]></content>
-  </entry>
-  
-</feed>
+
+		
+		
+	</div>
+
+</article>
+
+<nav id="pagenavi">
+    
+    
+</nav>
+</div>
+	<footer id="footer" class="inner"><br>
+<br>
+<br>
+<br>
+&copy; 2014
+
+    kakipo
+
+</footer>
+	<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/hyphenator.js"></script>
+
+
+
+
+
+
+
+</body>
+<script>
+  $(document).ready(function() {
+  // Make images center
+  $('p:has(img)').css('text-align', 'center');
+  });
+</script>
+</html>
