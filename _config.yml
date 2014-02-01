@@ -3,9 +3,9 @@
 # ----------------------- #
 
 url: http://kakipo.github.io
-title: My Octopress Blog
-subtitle: A blogging framework for hackers.
-author: Your Name
+title: diaspora
+subtitle: Where I End and You Begin
+author: kakipo
 simple_search: http://google.com/search
 description:
 
@@ -69,8 +69,9 @@ github_show_profile_link: true
 github_skip_forks: true
 
 # Twitter
-twitter_user:
+twitter_user: kakipo
 twitter_tweet_button: true
+twitter_tweet_button_lang: ja
 
 # Google +1
 google_plus_one: false
@@ -97,4 +98,5 @@ disqus_show_comment_count: false
 google_analytics_tracking_id:
 
 # Facebook Like
-facebook_like: false
+facebook_like: true
+facebook_lang: ja_JP
