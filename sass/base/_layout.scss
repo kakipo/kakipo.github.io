@@ -5,6 +5,10 @@ $max-width: 550px;
 	padding: 0;
 }
 
+#header-container {
+  margin-left: -1000px;
+  width: 2500px;
+}
 
 body{
 	font-family: $font-default;
@@ -18,7 +22,7 @@ body{
 	}
 	@media screen and (max-width: 600px){
 		font-size: 13px;
-        width: 80%;        
+        width: 80%;
 		margin: 0 auto;
 	}
 }
@@ -58,7 +62,7 @@ h3{
 	@media screen and (max-width: 620px) {
 	    font-size: 15px;
 	}
-    
+
     a{
 		color: $color-archieve-title;
         font-weight: bold;
@@ -68,7 +72,7 @@ h3{
 			border-bottom:none;
 		}
 	}
-    
+
 }
 
 a.category {
