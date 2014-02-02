@@ -227,11 +227,11 @@ http.max_initial_line_length: 100k
 ==========
 - 全 index の取得
 
-    `curl -XGET http://localhost:9200/_aliases?pretty=1`
+    `curl -XGET http://localhost:5200/_aliases?pretty=1`
 
 - type を指定して取得
 
-    `curl -XGET 'http://localhost:9200/_all/my_type/_search?pretty'`
+    `curl -XGET 'http://localhost:5200/_all/my_type/_search?pretty'`
 
 - 全 index の削除
 
@@ -239,11 +239,13 @@ http.max_initial_line_length: 100k
 
 - type を指定して削除
 
-    `curl -XDELETE 'http://localhost:9200/_all/my_type/'`
+    `curl -XDELETE 'http://localhost:5200/_all/my_type/'`
 
 
 参考
 ==========
 - [blog.johtani.info/images/entries/20130830/IntroductionES20130829.pdf](http://blog.johtani.info/images/entries/20130830/IntroductionES20130829.pdf)
 - [Elasticsearch Refresh Interval vs Indexing Performance | Sematext Blog](http://blog.sematext.com/2013/07/08/elasticsearch-refresh-interval-vs-indexing-performance/)
-- [Object Type [0.90]](http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/mapping-object-type.html)
+- [Fluentd+Elasticsearch+Kibana構成で便利な、logstash形式インデックスの粒度をカスタマイズする方法 - Y-Ken Studio](http://y-ken.hatenablog.com/entry/fluentd-elasticsearch-kibana-index-partitioning)
+- [Elasticsearch入門 pyfes 201207](http://www.slideshare.net/JunOhtani/elasticsearch-pyfes-201207)
+- [Bulk API [0.90]](http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/docs-bulk.html)
