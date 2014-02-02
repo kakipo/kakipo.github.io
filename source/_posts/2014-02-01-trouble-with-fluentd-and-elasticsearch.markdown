@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "大量のデータを fluentd から Elasticsearch へ転送する際に困ったこと"
+title: "fluentd -> Elasticsearch 大量データ転送でトラブル"
 date: 2014-02-01 19:42:15 +0900
 comments: true
 categories: ["fluentd", "Kibana3", "Elasticsearch"]
@@ -8,10 +8,12 @@ categories: ["fluentd", "Kibana3", "Elasticsearch"]
 
 概要
 ==========
-- fluentd を利用してサービスの情報を収集し、Kibana で分析したい
+- fluentd でサービスの情報を転送し、Kibana で分析したい
 - これまでの過去データを一度に放り込みたい
 - データの件数が合わない
 - Kibana でエラーが発生する
+- 各種設定を見直すことで対応可能
+
 
 背景
 ==========
