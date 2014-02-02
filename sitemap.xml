@@ -1,27 +1,27 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
-        <loc>http://kakipo.github.io/blog/2013/12/02/how-to-pick-rdbms-and-nosql/</loc>
-        <lastmod>2014-02-02T17:36:43+09:00</lastmod>
+        <loc>blog.kakipo.com/blog/2013/12/02/how-to-pick-rdbms-and-nosql/</loc>
+        <lastmod>2014-02-02T17:43:44+09:00</lastmod>
     </url>
     <url>
-        <loc>http://kakipo.github.io/blog/2014/02/01/trouble-with-fluentd-and-elasticsearch/</loc>
-        <lastmod>2014-02-02T17:36:43+09:00</lastmod>
+        <loc>blog.kakipo.com/blog/2014/02/01/trouble-with-fluentd-and-elasticsearch/</loc>
+        <lastmod>2014-02-02T17:43:44+09:00</lastmod>
     </url>
     <url>
-        <loc>http://kakipo.github.io/blog/archives/</loc>
-        <lastmod>2014-02-02T17:36:43+09:00</lastmod>
+        <loc>blog.kakipo.com/blog/archives/</loc>
+        <lastmod>2014-02-02T17:43:44+09:00</lastmod>
     </url>
     <url>
-        <loc>http://kakipo.github.io/blog/</loc>
-        <lastmod>2014-02-02T17:36:43+09:00</lastmod>
+        <loc>blog.kakipo.com/blog/</loc>
+        <lastmod>2014-02-02T17:43:44+09:00</lastmod>
     </url>
     <url>
-        <loc>http://kakipo.github.io/</loc>
-        <lastmod>2014-02-02T17:36:43+09:00</lastmod>
+        <loc>blog.kakipo.com/</loc>
+        <lastmod>2014-02-02T17:43:44+09:00</lastmod>
     </url>
     <url>
-        <loc>http://kakipo.github.io/robots.txt</loc>
-        <lastmod>2014-02-02T17:36:43+09:00</lastmod>
+        <loc>blog.kakipo.com/robots.txt</loc>
+        <lastmod>2014-02-02T17:43:44+09:00</lastmod>
     </url>
 </urlset>

@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: rdbms | diaspora]]></title>
-  <link href="http://kakipo.github.io/blog/categories/rdbms/atom.xml" rel="self"/>
-  <link href="http://kakipo.github.io/"/>
-  <updated>2014-02-02T17:36:54+09:00</updated>
-  <id>http://kakipo.github.io/</id>
+  <link href="blog.kakipo.com/blog/categories/rdbms/atom.xml" rel="self"/>
+  <link href="blog.kakipo.com/"/>
+  <updated>2014-02-02T17:43:52+09:00</updated>
+  <id>blog.kakipo.com/</id>
   <author>
     <name><![CDATA[kakipo]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[RDBMS と NoSQL の使いわけかた]]></title>
-    <link href="http://kakipo.github.io/blog/2013/12/02/how-to-pick-rdbms-and-nosql/"/>
+    <link href="blog.kakipo.com/blog/2013/12/02/how-to-pick-rdbms-and-nosql/"/>
     <updated>2013-12-02T19:26:00+09:00</updated>
-    <id>http://kakipo.github.io/blog/2013/12/02/how-to-pick-rdbms-and-nosql</id>
+    <id>blog.kakipo.com/blog/2013/12/02/how-to-pick-rdbms-and-nosql</id>
     <content type="html"><![CDATA[<p>RDBMS と NoSQL の使いわけの基準について。</p>
 
 <p>議論は出尽くして擦り切れた感があるのだけれども、
