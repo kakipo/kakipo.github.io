@@ -370,16 +370,16 @@ Kibana が生成するクエリの問題です。</p>
 <ul>
 <li><p>全 index の取得</p>
 
-<p>  <code>curl -XGET http://localhost:9200/_aliases?pretty=1</code></p></li>
+<p>  <code>curl -XGET http://localhost:5200/_aliases?pretty=1</code></p></li>
 <li><p>type を指定して取得</p>
 
-<p>  <code>curl -XGET 'http://localhost:9200/_all/my_type/_search?pretty'</code></p></li>
+<p>  <code>curl -XGET 'http://localhost:5200/_all/my_type/_search?pretty'</code></p></li>
 <li><p>全 index の削除</p>
 
 <p>  <code>curl -XDELETE 'http://localhost:5200/_all'</code></p></li>
 <li><p>type を指定して削除</p>
 
-<p>  <code>curl -XDELETE 'http://localhost:9200/_all/my_type/'</code></p></li>
+<p>  <code>curl -XDELETE 'http://localhost:5200/_all/my_type/'</code></p></li>
 </ul>
 
 
@@ -388,7 +388,9 @@ Kibana が生成するクエリの問題です。</p>
 <ul>
 <li><a href="http://blog.johtani.info/images/entries/20130830/IntroductionES20130829.pdf">blog.johtani.info/images/entries/20130830/IntroductionES20130829.pdf</a></li>
 <li><a href="http://blog.sematext.com/2013/07/08/elasticsearch-refresh-interval-vs-indexing-performance/">Elasticsearch Refresh Interval vs Indexing Performance | Sematext Blog</a></li>
-<li><a href="http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/mapping-object-type.html">Object Type [0.90]</a></li>
+<li><a href="http://y-ken.hatenablog.com/entry/fluentd-elasticsearch-kibana-index-partitioning">Fluentd+Elasticsearch+Kibana構成で便利な、logstash形式インデックスの粒度をカスタマイズする方法 &ndash; Y-Ken Studio</a></li>
+<li><a href="http://www.slideshare.net/JunOhtani/elasticsearch-pyfes-201207">Elasticsearch入門 pyfes 201207</a></li>
+<li><a href="http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/docs-bulk.html">Bulk API [0.90]</a></li>
 </ul>
 
 
