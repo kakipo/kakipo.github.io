@@ -19,6 +19,9 @@
 	<header>
 		<h2 class="title">{% if site.titlecase %}{{ page.title | titlecase }}{% else %}{{ page.title }}{% endif %}</h2>
 		<div class="meta date">{% include post/date.html %}{{ time }}</div>
+		{% unless page.sharing == false %}
+			{% include post/sharing.html %}
+		{% endunless %}
 	</header>
 	<div class="entry-content">{{ content }}</div>
 {% endif %}
