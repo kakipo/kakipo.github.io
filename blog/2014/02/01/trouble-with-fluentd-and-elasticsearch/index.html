@@ -21,14 +21,15 @@ Kibana でエラーが発生する 背景 長い長いミーティングに疲�
 	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
 	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-	
-
+	  <script src="/javascripts/jquery.ca2d.min.js"></script>
+  <script src="/javascripts/my.js"></script>
 </head>
 
 
 
 <body>
-	<header id="header" class="inner"><h1><a href="/">diaspora</a></h1>
+  <div id="header-container">
+    <header id="header" class="inner"><h1><a href="/">diaspora</a></h1>
 <span class="tagline">Where I End and You Begin</span>
 <!-- <nav id="main-nav"><ul>
 	<li><a href="/about">About</a></li>
@@ -50,6 +51,10 @@ Kibana でエラーが発生する 背景 長い長いミーティングに疲�
 
 
 </header>
+    <div style="height:200px;">
+      <canvas id="my-canvas"></canvas>
+    </div>
+  </div>
 
 	<div id="content" class="inner"><article class="post">
 	<header>
