@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Elasticsearch | diaspora]]></title>
   <link href="http://kakipo.github.io/blog/categories/elasticsearch/atom.xml" rel="self"/>
   <link href="http://kakipo.github.io/"/>
-  <updated>2014-02-02T14:28:36+09:00</updated>
+  <updated>2014-02-02T15:16:37+09:00</updated>
   <id>http://kakipo.github.io/</id>
   <author>
     <name><![CDATA[kakipo]]></name>
@@ -14,17 +14,18 @@
 
   
   <entry>
-    <title type="html"><![CDATA[大量のデータを fluentd から Elasticsearch へ転送する際に困ったこと]]></title>
+    <title type="html"><![CDATA[fluentd -> Elasticsearch 大量データ転送でトラブル]]></title>
     <link href="http://kakipo.github.io/blog/2014/02/01/trouble-with-fluentd-and-elasticsearch/"/>
     <updated>2014-02-01T19:42:15+09:00</updated>
     <id>http://kakipo.github.io/blog/2014/02/01/trouble-with-fluentd-and-elasticsearch</id>
     <content type="html"><![CDATA[<h1>概要</h1>
 
 <ul>
-<li>fluentd を利用してサービスの情報を収集し、Kibana で分析したい</li>
+<li>fluentd でサービスの情報を転送し、Kibana で分析したい</li>
 <li>これまでの過去データを一度に放り込みたい</li>
 <li>データの件数が合わない</li>
 <li>Kibana でエラーが発生する</li>
+<li>各種設定を見直すことで対応可能</li>
 </ul>
 
 

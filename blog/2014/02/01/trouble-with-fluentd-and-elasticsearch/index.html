@@ -3,15 +3,15 @@
 <html lang="en-GB">
 <head>
 	<meta charset="utf-8">
-	<title>大量のデータを fluentd から Elasticsearch へ転送する際に困ったこと  | diaspora</title>
+	<title>fluentd -> Elasticsearch 大量データ転送でトラブル  | diaspora</title>
 
 	<meta name="author" content="kakipo">
 
-<meta name="description" content="概要 fluentd を利用してサービスの情報を収集し、Kibana で分析したい
+<meta name="description" content="概要 fluentd でサービスの情報を転送し、Kibana で分析したい
 これまでの過去データを一度に放り込みたい
 データの件数が合わない
-Kibana でエラーが発生する 背景 長い長いミーティングに疲れ、集中力を擦り減らしたアナタは
-無意識のうちにブラウザを起動していました。 &hellip;"> <meta name="keywords" content="">
+Kibana でエラーが発生する
+各種設定を見直すことで対応可能 背景 長い長いミーティングに疲れ、集中力を擦り減らしたアナタは &hellip;"> <meta name="keywords" content="">
 
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -58,7 +58,7 @@ Kibana でエラーが発生する 背景 長い長いミーティングに疲�
 
 	<div id="content" class="inner"><article class="post">
 	<header>
-		<h2 class="title">大量のデータを Fluentd から Elasticsearch へ転送する際に困ったこと</h2>
+		<h2 class="title">Fluentd -> Elasticsearch 大量データ転送でトラブル</h2>
 		<div class="meta date">
 
 
@@ -76,10 +76,11 @@ Kibana でエラーが発生する 背景 長い長いミーティングに疲�
 	<div class="entry-content"><h1>概要</h1>
 
 <ul>
-<li>fluentd を利用してサービスの情報を収集し、Kibana で分析したい</li>
+<li>fluentd でサービスの情報を転送し、Kibana で分析したい</li>
 <li>これまでの過去データを一度に放り込みたい</li>
 <li>データの件数が合わない</li>
 <li>Kibana でエラーが発生する</li>
+<li>各種設定を見直すことで対応可能</li>
 </ul>
 
 
@@ -389,19 +390,19 @@ Kibana が生成するクエリの問題です。</p>
 	<div class="share">
 	  <!-- <ul> -->
 	  <!--   <li>
-  <a href="https://twitter.com/intent/tweet?text=大量のデータを fluentd から Elasticsearch へ転送する際に困ったこと by @kakipo&url=http://kakipo.github.io/blog/2014/02/01/trouble-with-fluentd-and-elasticsearch/" title="Share 大量のデータを fluentd から Elasticsearch へ転送する際に困ったこと on Twitter">
+  <a href="https://twitter.com/intent/tweet?text=fluentd -> Elasticsearch 大量データ転送でトラブル by @kakipo&url=http://kakipo.github.io/blog/2014/02/01/trouble-with-fluentd-and-elasticsearch/" title="Share fluentd -> Elasticsearch 大量データ転送でトラブル on Twitter">
     <img src="/images/social/twitter.png" />
   </a>
 </li>
  -->
 	  <!--   <li>
-  <a href="https://www.facebook.com/sharer.php?u=http://kakipo.github.io/blog/2014/02/01/trouble-with-fluentd-and-elasticsearch/" title="Share 大量のデータを fluentd から Elasticsearch へ転送する際に困ったこと on Facebook">
+  <a href="https://www.facebook.com/sharer.php?u=http://kakipo.github.io/blog/2014/02/01/trouble-with-fluentd-and-elasticsearch/" title="Share fluentd -> Elasticsearch 大量データ転送でトラブル on Facebook">
     <img src="/images/social/facebook.png" />
   </a>
 </li>
  -->
 	  <!--   <li>
-  <a href="https://plus.google.com/share?url=http://kakipo.github.io/blog/2014/02/01/trouble-with-fluentd-and-elasticsearch/" title="Share 大量のデータを fluentd から Elasticsearch へ転送する際に困ったこと on Google Plus">
+  <a href="https://plus.google.com/share?url=http://kakipo.github.io/blog/2014/02/01/trouble-with-fluentd-and-elasticsearch/" title="Share fluentd -> Elasticsearch 大量データ転送でトラブル on Google Plus">
     <img src="/images/social/google.png" />
   </a>
 </li>
