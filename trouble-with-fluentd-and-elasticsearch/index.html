@@ -75,12 +75,12 @@ Kibana でエラーが発生する
 		
 			<div class="sharing">
   <div style="float:left;">
-    <a href="http://b.hatena.ne.jp/entry/blog.kakipo.com/blog/2014/02/01/trouble-with-fluentd-and-elasticsearch/" class="hatena-bookmark-button" data-hatena-bookmark-layout="standard" title="このエントリーをはてなブックマークに追加"><img src="http://b.st-hatena.com/images/entry-button/button-only.gif" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" /></a>
+    <a href="http://b.hatena.ne.jp/entry/blog.kakipo.com/trouble-with-fluentd-and-elasticsearch/" class="hatena-bookmark-button" data-hatena-bookmark-layout="standard" title="このエントリーをはてなブックマークに追加"><img src="http://b.st-hatena.com/images/entry-button/button-only.gif" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" /></a>
     <script type="text/javascript" src="http://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script>
   </div>
   <div style="float:left; margin-left:30px;">
     
-      <a href="//twitter.com/share" class="twitter-share-button" data-url="blog.kakipo.com/blog/2014/02/01/trouble-with-fluentd-and-elasticsearch/" data-via="kakipo" data-counturl="blog.kakipo.com/blog/2014/02/01/trouble-with-fluentd-and-elasticsearch/" >Tweet</a>
+      <a href="//twitter.com/share" class="twitter-share-button" data-url="blog.kakipo.com/trouble-with-fluentd-and-elasticsearch/" data-via="kakipo" data-counturl="blog.kakipo.com/trouble-with-fluentd-and-elasticsearch/" >Tweet</a>
     
     
     
@@ -332,7 +332,7 @@ Kibana が生成するクエリの問題です。</p>
 
 <p>Kibana にて以下のエラーが発生する。</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='text'><span class='line'>Error Could not contact Elasticsearch at http://x.x.x.x:9200. Please ensure that Elasticsearch is reachable from your system.
 </span></code></pre></td></tr></table></div></figure>
 
@@ -379,16 +379,16 @@ Kibana が生成するクエリの問題です。</p>
 <ul>
 <li><p>全 index の取得</p>
 
-<p>  <code>curl -XGET http://localhost:5200/_aliases?pretty=1</code></p></li>
+<p>  <code>curl -XGET http://localhost:9200/_aliases?pretty=1</code></p></li>
 <li><p>type を指定して取得</p>
 
-<p>  <code>curl -XGET 'http://localhost:5200/_all/my_type/_search?pretty'</code></p></li>
+<p>  <code>curl -XGET 'http://localhost:9200/_all/my_type/_search?pretty'</code></p></li>
 <li><p>全 index の削除</p>
 
-<p>  <code>curl -XDELETE 'http://localhost:5200/_all'</code></p></li>
+<p>  <code>curl -XDELETE 'http://localhost:9200/_all'</code></p></li>
 <li><p>type を指定して削除</p>
 
-<p>  <code>curl -XDELETE 'http://localhost:5200/_all/my_type/'</code></p></li>
+<p>  <code>curl -XDELETE 'http://localhost:9200/_all/my_type/'</code></p></li>
 </ul>
 
 
@@ -409,12 +409,12 @@ Kibana が生成するクエリの問題です。</p>
 	<footer id="footer" class="inner">
   <div class="sharing">
   <div style="float:left;">
-    <a href="http://b.hatena.ne.jp/entry/blog.kakipo.com/blog/2014/02/01/trouble-with-fluentd-and-elasticsearch/" class="hatena-bookmark-button" data-hatena-bookmark-layout="standard" title="このエントリーをはてなブックマークに追加"><img src="http://b.st-hatena.com/images/entry-button/button-only.gif" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" /></a>
+    <a href="http://b.hatena.ne.jp/entry/blog.kakipo.com/trouble-with-fluentd-and-elasticsearch/" class="hatena-bookmark-button" data-hatena-bookmark-layout="standard" title="このエントリーをはてなブックマークに追加"><img src="http://b.st-hatena.com/images/entry-button/button-only.gif" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" /></a>
     <script type="text/javascript" src="http://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script>
   </div>
   <div style="float:left; margin-left:30px;">
     
-      <a href="//twitter.com/share" class="twitter-share-button" data-url="blog.kakipo.com/blog/2014/02/01/trouble-with-fluentd-and-elasticsearch/" data-via="kakipo" data-counturl="blog.kakipo.com/blog/2014/02/01/trouble-with-fluentd-and-elasticsearch/" >Tweet</a>
+      <a href="//twitter.com/share" class="twitter-share-button" data-url="blog.kakipo.com/trouble-with-fluentd-and-elasticsearch/" data-via="kakipo" data-counturl="blog.kakipo.com/trouble-with-fluentd-and-elasticsearch/" >Tweet</a>
     
     
     

@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Elasticsearch | diaspora]]></title>
   <link href="blog.kakipo.com/blog/categories/elasticsearch/atom.xml" rel="self"/>
   <link href="blog.kakipo.com/"/>
-  <updated>2014-02-02T21:17:17+09:00</updated>
+  <updated>2014-02-07T22:32:54+09:00</updated>
   <id>blog.kakipo.com/</id>
   <author>
     <name><![CDATA[kakipo]]></name>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[fluentd -> Elasticsearch 大量データ転送でトラブル]]></title>
-    <link href="blog.kakipo.com/blog/2014/02/01/trouble-with-fluentd-and-elasticsearch/"/>
+    <link href="blog.kakipo.com/trouble-with-fluentd-and-elasticsearch/"/>
     <updated>2014-02-01T19:42:15+09:00</updated>
-    <id>blog.kakipo.com/blog/2014/02/01/trouble-with-fluentd-and-elasticsearch</id>
+    <id>blog.kakipo.com/trouble-with-fluentd-and-elasticsearch</id>
     <content type="html"><![CDATA[<h1>概要</h1>
 
 <ul>
@@ -292,16 +292,16 @@ http.max_initial_line_length: 100k
 <ul>
 <li><p>全 index の取得</p>
 
-<p>  <code>curl -XGET http://localhost:5200/_aliases?pretty=1</code></p></li>
+<p>  <code>curl -XGET http://localhost:9200/_aliases?pretty=1</code></p></li>
 <li><p>type を指定して取得</p>
 
-<p>  <code>curl -XGET 'http://localhost:5200/_all/my_type/_search?pretty'</code></p></li>
+<p>  <code>curl -XGET 'http://localhost:9200/_all/my_type/_search?pretty'</code></p></li>
 <li><p>全 index の削除</p>
 
-<p>  <code>curl -XDELETE 'http://localhost:5200/_all'</code></p></li>
+<p>  <code>curl -XDELETE 'http://localhost:9200/_all'</code></p></li>
 <li><p>type を指定して削除</p>
 
-<p>  <code>curl -XDELETE 'http://localhost:5200/_all/my_type/'</code></p></li>
+<p>  <code>curl -XDELETE 'http://localhost:9200/_all/my_type/'</code></p></li>
 </ul>
 
 

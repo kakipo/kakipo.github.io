@@ -63,7 +63,7 @@ Kibana でエラーが発生する
 	<header>
 		<h2 class="title">
 			
-			<a href="/blog/2014/02/01/trouble-with-fluentd-and-elasticsearch/">
+			<a href="/trouble-with-fluentd-and-elasticsearch/">
 			
 				Fluentd -> Elasticsearch 大量データ転送でトラブル</a>
 		</h2>
@@ -323,7 +323,7 @@ Kibana が生成するクエリの問題です。</p>
 
 <p>Kibana にて以下のエラーが発生する。</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='text'><span class='line'>Error Could not contact Elasticsearch at http://x.x.x.x:9200. Please ensure that Elasticsearch is reachable from your system.
 </span></code></pre></td></tr></table></div></figure>
 
@@ -370,16 +370,16 @@ Kibana が生成するクエリの問題です。</p>
 <ul>
 <li><p>全 index の取得</p>
 
-<p>  <code>curl -XGET http://localhost:5200/_aliases?pretty=1</code></p></li>
+<p>  <code>curl -XGET http://localhost:9200/_aliases?pretty=1</code></p></li>
 <li><p>type を指定して取得</p>
 
-<p>  <code>curl -XGET 'http://localhost:5200/_all/my_type/_search?pretty'</code></p></li>
+<p>  <code>curl -XGET 'http://localhost:9200/_all/my_type/_search?pretty'</code></p></li>
 <li><p>全 index の削除</p>
 
-<p>  <code>curl -XDELETE 'http://localhost:5200/_all'</code></p></li>
+<p>  <code>curl -XDELETE 'http://localhost:9200/_all'</code></p></li>
 <li><p>type を指定して削除</p>
 
-<p>  <code>curl -XDELETE 'http://localhost:5200/_all/my_type/'</code></p></li>
+<p>  <code>curl -XDELETE 'http://localhost:9200/_all/my_type/'</code></p></li>
 </ul>
 
 
@@ -405,7 +405,7 @@ Kibana が生成するクエリの問題です。</p>
 	<header>
 		<h2 class="title">
 			
-			<a href="/blog/2013/12/02/how-to-pick-rdbms-and-nosql/">
+			<a href="/how-to-pick-rdbms-and-nosql/">
 			
 				RDBMS と NoSQL の使いわけかた</a>
 		</h2>
