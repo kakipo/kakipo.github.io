@@ -227,19 +227,19 @@ http.max_initial_line_length: 100k
 ==========
 - 全 index の取得
 
-    `curl -XGET http://localhost:5200/_aliases?pretty=1`
+    `curl -XGET http://localhost:9200/_aliases?pretty=1`
 
 - type を指定して取得
 
-    `curl -XGET 'http://localhost:5200/_all/my_type/_search?pretty'`
+    `curl -XGET 'http://localhost:9200/_all/my_type/_search?pretty'`
 
 - 全 index の削除
 
-    `curl -XDELETE 'http://localhost:5200/_all'`
+    `curl -XDELETE 'http://localhost:9200/_all'`
 
 - type を指定して削除
 
-    `curl -XDELETE 'http://localhost:5200/_all/my_type/'`
+    `curl -XDELETE 'http://localhost:9200/_all/my_type/'`
 
 
 参考

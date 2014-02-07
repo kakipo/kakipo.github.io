@@ -16,11 +16,20 @@ module BacktickCodeBlock
 
       if @options =~ AllOptions
         @lang = $1
-        @caption = "<figcaption><span>#{$2}</span><a href='#{$3}'>#{$4 || 'link'}</a></figcaption>"
+        if $2.nil?
+          @caption = ""
+        else
+          @caption = "<figcaption><span>#{$2}</span><a href='#{$3}'>#{$4 || 'link'}</a></figcaption>"
+        end
       elsif @options =~ LangCaption
         @lang = $1
-        @caption = "<figcaption><span>#{$2}</span></figcaption>"
+        if $2.nil?
+          @caption = ""
+        else
+          @caption = "<figcaption><span>#{$2}</span></figcaption>"
+        end
       end
+
 
       if str.match(/\A( {4}|\t)/)
         str = str.gsub(/^( {4}|\t)/, '')
