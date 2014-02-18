@@ -3,11 +3,12 @@
 <html lang="en-GB">
 <head>
 	<meta charset="utf-8">
-	<title>blog.kakipo.com  | diaspora</title>
+	<title>RDBMS と NoSQL の使いわけかた  | diaspora</title>
 
 	<meta name="author" content="kakipo">
 
-<meta name="description" content=" fluentd -> Elasticsearch 大量データ転送でトラブル 2014 Feb 1 Elasticsearch, Kibana3, fluentd RDBMS と NoSQL の使いわけかた 2013 Dec 2 nosql, rdbms "> <meta name="keywords" content="">
+<meta name="description" content="RDBMS と NoSQL の使いわけの基準について。 議論は出尽くして擦り切れた感があるのだけれども、
+ぼく自身の経験から得られた基準をまとめておこうと思う。 適材適所という言葉に従うための基準。 汎用性を考えるとやっぱり RDBMS に分がある どちらを使うべきか迷うなら RDBMS で良い &hellip;"> <meta name="keywords" content="">
 
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -52,44 +53,91 @@
     </div>
   </div>
 
-	<div id="content" class="inner">
-	
-<article>
-	<h3><a href="/trouble-with-fluentd-and-elasticsearch/">fluentd -> Elasticsearch 大量データ転送でトラブル</a></h3>
-	<div class="meta">
-		<span class="date">2014 Feb  1 </span>
-		<span class="tags">
+	<div id="content" class="inner"><article class="post">
+	<header>
+		<div class="meta date">
 
 
-	<a class='category' href='/blog/categories/elasticsearch/'>Elasticsearch</a>, <a class='category' href='/blog/categories/kibana3/'>Kibana3</a>, <a class='category' href='/blog/categories/fluentd/'>fluentd</a>
 
 
-</span>
-	</div>
+
+
+
+
+  
+
+
+<time datetime="2013-12-02T19:26:00+09:00" pubdate data-updated="true">2013-12-02</time></div>
+		<h2 class="title">RDBMS と NoSQL の使いわけかた</h2>
+		
+			<div class="sharing">
+  <div style="float:left;">
+    <a href="http://b.hatena.ne.jp/entry/http://blog.kakipo.com/how-to-pick-rdbms-and-nosql/" class="hatena-bookmark-button" data-hatena-bookmark-layout="standard" title="このエントリーをはてなブックマークに追加"><img src="http://b.st-hatena.com/images/entry-button/button-only.gif" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" /></a>
+    <script type="text/javascript" src="http://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script>
+  </div>
+  <div style="float:left; margin-left:30px;">
+    
+      <a href="https://twitter.com/share" class="twitter-share-button" data-via="kakipo" data-lang="ja">Tweet</a>
+      <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+    
+    
+    
+      <div class="fb-like" data-send="true" data-width="450" data-show-faces="false" data-share="true" data-layout="button_count" style="position: relative; top: -3px;"></div>
+    
+  </div>
+</div>
+
+		
+	</header>
+	<div class="entry-content"><p>RDBMS と NoSQL の使いわけの基準について。</p>
+
+<p>議論は出尽くして擦り切れた感があるのだけれども、
+ぼく自身の経験から得られた基準をまとめておこうと思う。</p>
+
+<p>適材適所という言葉に従うための基準。</p>
+
+<ul>
+<li>汎用性を考えるとやっぱり RDBMS に分がある
+
+<ul>
+<li>どちらを使うべきか迷うなら RDBMS で良い</li>
+<li>枯れた技術だし、実績も情報もたくさんある</li>
+<li>石を投げれば SQL マスターやパフォチューに苦労した先人達に当たる</li>
+</ul>
+</li>
+<li>NoSQL と相性のいいユースケース
+
+<ul>
+<li>使いすてのアプリケーション
+
+<ul>
+<li>プロトタイプ</li>
+<li>キャンペーン</li>
+</ul>
+</li>
+<li>モデル（コレクション）の数が少ない
+
+<ul>
+<li>10 個くらいが閾値</li>
+<li>キャッシュストレージ</li>
+<li>ログストレージ</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+
+<p>「スキーマデザイン考えなくて良い！ひゃっほう！」ってな考えの基での NoSQL の採用は問題の先送りにしかならず、
+熱力学第二法則よろしく日々データモデルは複雑化していき、つぎはぎだらけのシステムがあなたのプライベートを殺す。</p>
+</div>
+
 </article>
-
-
-	
-<article>
-	<h3><a href="/how-to-pick-rdbms-and-nosql/">RDBMS と NoSQL の使いわけかた</a></h3>
-	<div class="meta">
-		<span class="date">2013 Dec  2 </span>
-		<span class="tags">
-
-
-	<a class='category' href='/blog/categories/nosql/'>nosql</a>, <a class='category' href='/blog/categories/rdbms/'>rdbms</a>
-
-
-</span>
-	</div>
-</article>
-
-
 </div>
 	<footer id="footer" class="inner">
   <div class="sharing">
   <div style="float:left;">
-    <a href="http://b.hatena.ne.jp/entry/http://blog.kakipo.com/index.html" class="hatena-bookmark-button" data-hatena-bookmark-layout="standard" title="このエントリーをはてなブックマークに追加"><img src="http://b.st-hatena.com/images/entry-button/button-only.gif" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" /></a>
+    <a href="http://b.hatena.ne.jp/entry/http://blog.kakipo.com/how-to-pick-rdbms-and-nosql/" class="hatena-bookmark-button" data-hatena-bookmark-layout="standard" title="このエントリーをはてなブックマークに追加"><img src="http://b.st-hatena.com/images/entry-button/button-only.gif" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" /></a>
     <script type="text/javascript" src="http://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script>
   </div>
   <div style="float:left; margin-left:30px;">

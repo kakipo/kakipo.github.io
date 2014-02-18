@@ -1,0 +1,495 @@
+
+<!DOCTYPE HTML>
+<html lang="en-GB">
+<head>
+	<meta charset="utf-8">
+	<title>fluentd -> Elasticsearch 大量データ転送でトラブル  | diaspora</title>
+
+	<meta name="author" content="kakipo">
+
+<meta name="description" content="概要 fluentd でサービスの情報を転送し、Kibana で分析したい
+これまでの過去データを一度に放り込みたい
+データの件数が合わない
+Kibana でエラーが発生する
+各種設定を見直すことで対応可能 背景 長い長いミーティングに疲れ、集中力を擦り減らしたアナタは &hellip;"> <meta name="keywords" content="">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="diaspora" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	  <script src="/javascripts/jquery.ca2d.min.js"></script>
+  <script src="/javascripts/my.js"></script>
+</head>
+
+
+
+<body>
+  <div id="header-container">
+    <header id="header" class="inner"><h1><a href="/">diaspora</a></h1>
+<span class="tagline">Where I End and You Begin</span>
+<!-- <nav id="main-nav"><ul>
+	<li><a href="/about">About</a></li>
+	<li><a href="/archives">Archives</a></li>
+	<li><a href="/contact">Contact</a></li>
+</ul>
+</nav> -->
+<!-- <nav id="mobile-nav"> -->
+<!-- 	<div class="alignleft menu"> -->
+<!-- 		<a class="button">Menu</a> -->
+<!-- 		<div class="container"><ul>
+	<li><a href="/about">About</a></li>
+	<li><a href="/archives">Archives</a></li>
+	<li><a href="/contact">Contact</a></li>
+</ul>
+</div> -->
+<!-- 	</div> -->
+<!-- </nav> -->
+
+
+</header>
+    <div style="height:200px;">
+      <canvas id="my-canvas"></canvas>
+    </div>
+  </div>
+
+	<div id="content" class="inner"><article class="post">
+	<header>
+		<div class="meta date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-02-01T19:42:15+09:00" pubdate data-updated="true">2014-02-01</time></div>
+		<h2 class="title">Fluentd -> Elasticsearch 大量データ転送でトラブル</h2>
+		
+			<div class="sharing">
+  <div style="float:left;">
+    <a href="http://b.hatena.ne.jp/entry/http://blog.kakipo.com/trouble-with-fluentd-and-elasticsearch/" class="hatena-bookmark-button" data-hatena-bookmark-layout="standard" title="このエントリーをはてなブックマークに追加"><img src="http://b.st-hatena.com/images/entry-button/button-only.gif" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" /></a>
+    <script type="text/javascript" src="http://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script>
+  </div>
+  <div style="float:left; margin-left:30px;">
+    
+      <a href="https://twitter.com/share" class="twitter-share-button" data-via="kakipo" data-lang="ja">Tweet</a>
+      <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+    
+    
+    
+      <div class="fb-like" data-send="true" data-width="450" data-show-faces="false" data-share="true" data-layout="button_count" style="position: relative; top: -3px;"></div>
+    
+  </div>
+</div>
+
+		
+	</header>
+	<div class="entry-content"><h1>概要</h1>
+
+<ul>
+<li>fluentd でサービスの情報を転送し、Kibana で分析したい</li>
+<li>これまでの過去データを一度に放り込みたい</li>
+<li>データの件数が合わない</li>
+<li>Kibana でエラーが発生する</li>
+<li>各種設定を見直すことで対応可能</li>
+</ul>
+
+
+<h1>背景</h1>
+
+<p>長い長いミーティングに疲れ、集中力を擦り減らしたアナタは
+無意識のうちにブラウザを起動していました。</p>
+
+<p>去年まで勤めていた会社の同僚がシェアした記事が目に止まります。</p>
+
+<p><strong>「fluentd + Elasticsearch + Kibana で今どきのログ分析！」</strong></p>
+
+<p>感化されやすいアナタはおもむろに VM を立ち上げ環境を構築します。
+Web サーバから吐き出されたログはオシャレでイイ感じにチャート化され、
+満足したアナタは VM を落とし、再び仕事に戻りました。</p>
+
+<p>しばらく経ったある日のこと、ふと気づきます。
+「ログだけじゃなくて、ユーザ属性の分析にもコレ使えそう。」</p>
+
+<p>毎度オレオレ管理ページを作ることに疲れていたアナタは、
+さっそくこの思いつきを行動に移しました。</p>
+
+<p>が、簡単にはうまくいきません。
+登録されるデータが想定より多かったり少なかったり。
+Kibana はエラーメッセージを吐き出したり。
+アナタは茨の道に踏み込んでしまったことに気づいたのです。</p>
+
+<h1>症状・原因・対策</h1>
+
+<h2>症状①: 登録される record が少ない</h2>
+
+<p>登録されたレコードが想定より少ない。
+この場合、様々な原因が考えられます。</p>
+
+<h3>原因1: 大量 index 作成の負荷</h3>
+
+<p>Kibana はデフォルトでは <code>logstash-YYYY.MM.dd</code> 形式の index を期待しており、
+fluent-plugin-elasticsearch もその形式で index を設定します。</p>
+
+<p>今回のように過去のデータを一括で（新規に）登録しようする場合、
+日数分の index を作成するために大きな負荷が発生し、
+処理に失敗する可能性があります。</p>
+
+<p>その際には以下のような <code>ProcessClusterEventTimeoutException</code> がログに追記されます。</p>
+
+<figure class='code'><figcaption><span>/var/log/elasticsearch/elasticsearch.log</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='text'><span class='line'>[2014-01-31 11:57:46,255][DEBUG][action.admin.indices.create] [Mace, Gideon] [logstash-2013.06.13] failed to create
+</span><span class='line'>org.elasticsearch.cluster.metadata.ProcessClusterEventTimeoutException: failed to process cluster event (create-index [logstash-2013.06.13], cause [auto(bulk api)]) within 30s
+</span><span class='line'>    at org.elasticsearch.cluster.service.InternalClusterService$2$1.run(InternalClusterService.java:239)
+</span><span class='line'>    at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1146)
+</span><span class='line'>    (...)
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>また、後述のように Elasticsearch では処理キュー数が閾値を超えた場合、
+後続の処理を破棄される設定となっているために、index の作成自体がなされない可能性があります。</p>
+
+<p>通常の利用シナリオではこのように一度に大量の index を作成することはあまりないため、問題になることは少ないでしょう。</p>
+
+<h4>対策</h4>
+
+<p>今のところ Timeout までの設定値を変更することはできないようです。
+あらかじめ必要となる index を作成しておきましょう。</p>
+
+<h4>参考</h4>
+
+<ul>
+<li><a href="http://elasticsearch-users.115913.n3.nabble.com/ProcessClusterEventTimeoutException-in-Elasticsearch-Is-this-timeout-value-configurable-If-yes-how-td4048308.html">ElasticSearch Users &ndash; ProcessClusterEventTimeoutException in Elasticsearch. Is this timeout value configurable? If yes how?</a></li>
+</ul>
+
+
+<h3>原因2: 処理キューが閾値を超えた場合にリクエストを破棄する</h3>
+
+<p>Elasticsearch はデフォルトで閾値を超えたキューを破棄する設定となっています。
+例えば index の作成は 50 個まで、bulk 処理は 20 個までといった具合。</p>
+
+<p>メモリの消費を抑え適切に管理するための設定ではあるのですが、
+この設定により作られるハズの index が作成されなかったり、
+投入されるハズの record が作成されなかったりします。</p>
+
+<h4>対策</h4>
+
+<p>Thread Pool のキューサイズを変更します。</p>
+
+<figure class='code'><figcaption><span>/etc/elasticsearch/elasticsearch.yml</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='yaml'><span class='line'><span class="c1"># queue_size は実行するスレッドが存在せずペンディングされたリクエスト</span>
+</span><span class='line'><span class="c1"># のキューの数の設定に使用します。キューが満杯の状態で</span>
+</span><span class='line'><span class="c1"># リクエストが来た際には、そのリクエストは破棄されます。</span>
+</span><span class='line'><span class="c1"># 制限をしたくない場合には -1 を設定してください。</span>
+</span><span class='line'><span class="l-Scalar-Plain">threadpool.index.queue_size</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">-1</span> <span class="c1"># デフォルト 200</span>
+</span><span class='line'><span class="l-Scalar-Plain">threadpool.bulk.queue_size</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">-1</span> <span class="c1"># デフォルト 50</span>
+</span><span class='line'><span class="c1"># threadpool.search.queue_size: -1</span>
+</span><span class='line'><span class="c1"># threadpool.get.queue_size: -1</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><em>注) サーバのスペック、処理したいデータ量に応じて設定してください。</em>
+<em>不適切な設定はメモリの過剰消費によるメモリ不足やスラッシングの原因となる可能性があります。</em></p>
+
+<h4>参考</h4>
+
+<ul>
+<li><a href="http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/modules-threadpool.html#modules-threadpool">Thread Pool [0.90]</a></li>
+<li><a href="https://github.com/elasticsearch/elasticsearch/issues/3888">Set queue sizes by default on bulk/index thread pools · Issue #3888 · elasticsearch/elasticsearch</a></li>
+</ul>
+
+
+<h3>原因3: データマッピングに失敗している</h3>
+
+<p>Elasticsearch は新たに投入される record を解析し、
+動的にデータ型を規定します。その後規定された型と合わないデータを
+投入しようとすると <code>MapperParsingException</code> が発生します。</p>
+
+<p>特に「日付のようなフィールド」を日付型と認識される可能性が
+あることに注意してください。</p>
+
+<p>次のログは日付型のフィールドに空文字を設定しようとした場合に出力されました。</p>
+
+<figure class='code'><figcaption><span>/var/log/elasticsearch/elasticsearch.log</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='text'><span class='line'>[2014-01-31 12:39:07,907][DEBUG][action.bulk              ] [Nicholas Scratch] [logstash-2013.09.18][1] failed     to execute bulk item (index) index {[logstash-2013.09.18][xxxx_type][xxxxx_id_0000], source[{....}]}
+</span><span class='line'>org.elasticsearch.index.mapper.MapperParsingException: failed to parse [xxx_day]
+</span><span class='line'>        at org.elasticsearch.index.mapper.core.AbstractFieldMapper.parse(AbstractFieldMapper.java:416)
+</span><span class='line'>(...)
+</span><span class='line'>Caused by: org.elasticsearch.index.mapper.MapperParsingException: failed to parse date field [], tried both date format [dateOptionalTime], and timestamp number with locale []
+</span><span class='line'>        at org.elasticsearch.index.mapper.core.DateFieldMapper.parseStringValue(DateFieldMapper.java:487)
+</span><span class='line'>        at
+</span><span class='line'>(...)
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>対策</h4>
+
+<p>Elasticsearch の Default Mapping 設定を見直しましょう。
+<code>default-mapping.json</code> という設定ファイルを作成することで、
+デフォルトのマッピング設定を変更することが可能です。</p>
+
+<figure class='code'><figcaption><span>/etc/elasticsearch/default-mapping.json</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='json'><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="nt">&quot;_default_&quot;</span> <span class="p">:</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nt">&quot;properties&quot;</span> <span class="p">:</span> <span class="p">{</span>
+</span><span class='line'>            <span class="nt">&quot;foo&quot;</span> <span class="p">:</span> <span class="p">{</span><span class="nt">&quot;type&quot;</span> <span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">},</span>
+</span><span class='line'>            <span class="nt">&quot;bar&quot;</span> <span class="p">:</span> <span class="p">{</span><span class="nt">&quot;type&quot;</span> <span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">}</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>参考</h4>
+
+<ul>
+<li><a href="http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/mapping-root-object-type.html">Root Object Type [0.90]</a></li>
+<li><a href="http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/mapping-object-type.html">Object Type [0.90]</a></li>
+<li><a href="http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/mapping-core-types.html">Core Types [0.90]</a></li>
+<li><a href="http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/mapping-date-format.html">Date Format [0.90]</a></li>
+</ul>
+
+
+<h2>症状②: 逆に登録される record が多い</h2>
+
+<p>登録されたデータが想定より多い。
+fluentd のログにリトライした形跡がある。</p>
+
+<h3>原因</h3>
+
+<p>Elasticsearch の負荷が高いため、登録処理自体は行われたものの
+fluentd へのリプライに失敗。その後 fluentd がリトライを試み、
+重複してデータが登録されたことが原因の可能性があります。</p>
+
+<h4>対策</h4>
+
+<p>なかなか難しい問題です&hellip;
+Elasticsearch 側でエラーが発生しないように頑張り、
+ある程度の重複の発生を受け入れる or 頑張って削除するのが現実的でしょうか。</p>
+
+<h4>参考</h4>
+
+<ul>
+<li><a href="https://github.com/uken/fluent-plugin-elasticsearch">uken/fluent-plugin-elasticsearch</a></li>
+</ul>
+
+
+<h2>症状③: Kibana で エラーが発生する（Parse Failure）</h2>
+
+<p>Kibana にて以下のようなエラーが発生する。</p>
+
+<p><code>Parse Failure [No mapping found for [@timestamp] in order to sort on]</code></p>
+
+<h3>原因</h3>
+
+<p>空の index に対して検索を行い処理に失敗している可能性があります。
+Kibana が生成するクエリの問題です。</p>
+
+<h4>対策</h4>
+
+<p>record が存在しない空の index は削除しましょう。</p>
+
+<h4>参考</h4>
+
+<ul>
+<li><a href="https://logstash.jira.com/browse/LOGSTASH-889">[LOGSTASH-889] Empty indices throw error &ndash; logstash.jira.com</a></li>
+</ul>
+
+
+<h2>症状4: Kibana で エラーが発生する（Could not contact Elasticsearch）</h2>
+
+<p>Kibana にて以下のエラーが発生する。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='text'><span class='line'>Error Could not contact Elasticsearch at http://x.x.x.x:9200. Please ensure that Elasticsearch is reachable from your system.
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>また、 Elasticsearch のログには以下のようなエラーが記録される。</p>
+
+<figure class='code'><figcaption><span>/var/log/elasticsearch/elasticsearch.log</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='text'><span class='line'>[2014-01-31 13:58:28,444][WARN ][http.netty               ] [Nicholas Scratch] Caught exception while handling client http traffic, closing connection [id: 0xad362931, /x.x.x.x:36389 =&gt; /x.x.x.x:9200]
+</span><span class='line'>org.elasticsearch.common.netty.handler.codec.frame.TooLongFrameException: An HTTP line is larger than 4096 bytes.
+</span><span class='line'>        at org.elasticsearch.common.netty.handler.codec.http.HttpMessageDecoder.readLine(HttpMessageDecoder.java:642)
+</span><span class='line'>        at org.elasticsearch.common.netty.handler.codec.http.HttpMessageDecoder.decode(HttpMessageDecoder.java:182)
+</span><span class='line'>        (...)
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>原因</h3>
+
+<p>検索対象の index が多く、リクエスト URL の長さが規定値を上回っている可能性があります。</p>
+
+<h4>対策</h4>
+
+<p>Elasticsearch の <code>max_initial_line_length</code> を設定します。</p>
+
+<figure class='code'><figcaption><span>/etc/elasticsearch/elasticsearch.yml</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='yaml'><span class='line'><span class="l-Scalar-Plain">(...)</span>
+</span><span class='line'><span class="l-Scalar-Plain">http.max_initial_line_length</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">100k</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>参考</h4>
+
+<ul>
+<li><a href="http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/modules-http.html">HTTP [0.90]</a></li>
+</ul>
+
+
+<h1>（おまけ）Elasticsearch スニペット</h1>
+
+<ul>
+<li><p>全 index の取得</p>
+
+<p>  <code>curl -XGET http://localhost:9200/_aliases?pretty=1</code></p></li>
+<li><p>type を指定して取得</p>
+
+<p>  <code>curl -XGET 'http://localhost:9200/_all/my_type/_search?pretty'</code></p></li>
+<li><p>全 index の削除</p>
+
+<p>  <code>curl -XDELETE 'http://localhost:9200/_all'</code></p></li>
+<li><p>type を指定して削除</p>
+
+<p>  <code>curl -XDELETE 'http://localhost:9200/_all/my_type/'</code></p></li>
+</ul>
+
+
+<h1>参考</h1>
+
+<ul>
+<li><a href="http://blog.johtani.info/images/entries/20130830/IntroductionES20130829.pdf">blog.johtani.info/images/entries/20130830/IntroductionES20130829.pdf</a></li>
+<li><a href="http://blog.sematext.com/2013/07/08/elasticsearch-refresh-interval-vs-indexing-performance/">Elasticsearch Refresh Interval vs Indexing Performance | Sematext Blog</a></li>
+<li><a href="http://y-ken.hatenablog.com/entry/fluentd-elasticsearch-kibana-index-partitioning">Fluentd+Elasticsearch+Kibana構成で便利な、logstash形式インデックスの粒度をカスタマイズする方法 &ndash; Y-Ken Studio</a></li>
+<li><a href="http://www.slideshare.net/JunOhtani/elasticsearch-pyfes-201207">Elasticsearch入門 pyfes 201207</a></li>
+<li><a href="http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/docs-bulk.html">Bulk API [0.90]</a></li>
+</ul>
+
+</div>
+
+</article>
+</div>
+	<footer id="footer" class="inner">
+  <div class="sharing">
+  <div style="float:left;">
+    <a href="http://b.hatena.ne.jp/entry/http://blog.kakipo.com/trouble-with-fluentd-and-elasticsearch/" class="hatena-bookmark-button" data-hatena-bookmark-layout="standard" title="このエントリーをはてなブックマークに追加"><img src="http://b.st-hatena.com/images/entry-button/button-only.gif" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" /></a>
+    <script type="text/javascript" src="http://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script>
+  </div>
+  <div style="float:left; margin-left:30px;">
+    
+      <a href="https://twitter.com/share" class="twitter-share-button" data-via="kakipo" data-lang="ja">Tweet</a>
+      <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+    
+    
+    
+      <div class="fb-like" data-send="true" data-width="450" data-show-faces="false" data-share="true" data-layout="button_count" style="position: relative; top: -3px;"></div>
+    
+  </div>
+</div>
+
+
+
+<br>
+<br>
+<br>
+<br>
+&copy; 2014
+
+    kakipo
+
+</footer>
+	<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/hyphenator.js"></script>
+
+
+
+
+	<script type="text/javascript">
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-22788394-2']);
+		_gaq.push(['_trackPageview']);
+
+		(function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+	</script>
+
+
+
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=402493286511253";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+</body>
+<script>
+  $(document).ready(function() {
+  // Make images center
+  $('p:has(img)').css('text-align', 'center');
+  });
+</script>
+</html>
