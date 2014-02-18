@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: nosql | diaspora]]></title>
+  <link href="blog.kakipo.com/blog/categories/nosql/atom.xml" rel="self"/>
+  <link href="blog.kakipo.com/"/>
+  <updated>2014-02-07T23:59:55+09:00</updated>
+  <id>blog.kakipo.com/</id>
+  <author>
+    <name><![CDATA[kakipo]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[RDBMS と NoSQL の使いわけかた]]></title>
+    <link href="blog.kakipo.com/how-to-pick-rdbms-and-nosql/"/>
+    <updated>2013-12-02T19:26:00+09:00</updated>
+    <id>blog.kakipo.com/how-to-pick-rdbms-and-nosql</id>
+    <content type="html"><![CDATA[<p>RDBMS と NoSQL の使いわけの基準について。</p>
+
+<p>議論は出尽くして擦り切れた感があるのだけれども、
+ぼく自身の経験から得られた基準をまとめておこうと思う。</p>
+
+<p>適材適所という言葉に従うための基準。</p>
+
+<ul>
+<li>汎用性を考えるとやっぱり RDBMS に分がある
+
+<ul>
+<li>どちらを使うべきか迷うなら RDBMS で良い</li>
+<li>枯れた技術だし、実績も情報もたくさんある</li>
+<li>石を投げれば SQL マスターやパフォチューに苦労した先人達に当たる</li>
+</ul>
+</li>
+<li>NoSQL と相性のいいユースケース
+
+<ul>
+<li>使いすてのアプリケーション
+
+<ul>
+<li>プロトタイプ</li>
+<li>キャンペーン</li>
+</ul>
+</li>
+<li>モデル（コレクション）の数が少ない
+
+<ul>
+<li>10 個くらいが閾値</li>
+<li>キャッシュストレージ</li>
+<li>ログストレージ</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+
+<p>「スキーマデザイン考えなくて良い！ひゃっほう！」ってな考えの基での NoSQL の採用は問題の先送りにしかならず、
+熱力学第二法則よろしく日々データモデルは複雑化していき、つぎはぎだらけのシステムがあなたのプライベートを殺す。</p>
+]]></content>
+  </entry>
+  
+</feed>

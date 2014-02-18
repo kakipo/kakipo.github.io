@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Elasticsearch | diaspora]]></title>
+  <link href="blog.kakipo.com/blog/categories/elasticsearch/atom.xml" rel="self"/>
+  <link href="blog.kakipo.com/"/>
+  <updated>2014-02-07T23:59:55+09:00</updated>
+  <id>blog.kakipo.com/</id>
+  <author>
+    <name><![CDATA[kakipo]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[fluentd -> Elasticsearch 大量データ転送でトラブル]]></title>
+    <link href="blog.kakipo.com/trouble-with-fluentd-and-elasticsearch/"/>
+    <updated>2014-02-01T19:42:15+09:00</updated>
+    <id>blog.kakipo.com/trouble-with-fluentd-and-elasticsearch</id>
+    <content type="html"><![CDATA[<h1>概要</h1>
+
+<ul>
+<li>fluentd でサービスの情報を転送し、Kibana で分析したい</li>
+<li>これまでの過去データを一度に放り込みたい</li>
+<li>データの件数が合わない</li>
+<li>Kibana でエラーが発生する</li>
+<li>各種設定を見直すことで対応可能</li>
+</ul>
+
+
+<h1>背景</h1>
+
+<p>長い長いミーティングに疲れ、集中力を擦り減らしたアナタは
+無意識のうちにブラウザを起動していました。</p>
+
+<p>去年まで勤めていた会社の同僚がシェアした記事が目に止まります。</p>
+
+<p><strong>「fluentd + Elasticsearch + Kibana で今どきのログ分析！」</strong></p>
+
+<p>感化されやすいアナタはおもむろに VM を立ち上げ環境を構築します。
+Web サーバから吐き出されたログはオシャレでイイ感じにチャート化され、
+満足したアナタは VM を落とし、再び仕事に戻りました。</p>
+
+<p>しばらく経ったある日のこと、ふと気づきます。
+「ログだけじゃなくて、ユーザ属性の分析にもコレ使えそう。」</p>
+
+<p>毎度オレオレ管理ページを作ることに疲れていたアナタは、
+さっそくこの思いつきを行動に移しました。</p>
+
+<p>が、簡単にはうまくいきません。
+登録されるデータが想定より多かったり少なかったり。
+Kibana はエラーメッセージを吐き出したり。
+アナタは茨の道に踏み込んでしまったことに気づいたのです。</p>
+
+<h1>症状・原因・対策</h1>
+
+<h2>症状①: 登録される record が少ない</h2>
+
+<p>登録されたレコードが想定より少ない。
+この場合、様々な原因が考えられます。</p>
+
+<h3>原因1: 大量 index 作成の負荷</h3>
+
+<p>Kibana はデフォルトでは <code>logstash-YYYY.MM.dd</code> 形式の index を期待しており、
+fluent-plugin-elasticsearch もその形式で index を設定します。</p>
+
+<p>今回のように過去のデータを一括で（新規に）登録しようする場合、
+日数分の index を作成するために大きな負荷が発生し、
+処理に失敗する可能性があります。</p>
+
+<p>その際には以下のような <code>ProcessClusterEventTimeoutException</code> がログに追記されます。</p>
+
+<p>``` text /var/log/elasticsearch/elasticsearch.log
+[2014-01-31 11:57:46,255][DEBUG][action.admin.indices.create] [Mace, Gideon] [logstash-2013.06.13] failed to create
+org.elasticsearch.cluster.metadata.ProcessClusterEventTimeoutException: failed to process cluster event (create-index [logstash-2013.06.13], cause [auto(bulk api)]) within 30s</p>
+
+<pre><code>at org.elasticsearch.cluster.service.InternalClusterService$2$1.run(InternalClusterService.java:239)
+at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1146)
+(...)
+</code></pre>
+
+<p>```</p>
+
+<p>また、後述のように Elasticsearch では処理キュー数が閾値を超えた場合、
+後続の処理を破棄される設定となっているために、index の作成自体がなされない可能性があります。</p>
+
+<p>通常の利用シナリオではこのように一度に大量の index を作成することはあまりないため、問題になることは少ないでしょう。</p>
+
+<h4>対策</h4>
+
+<p>今のところ Timeout までの設定値を変更することはできないようです。
+あらかじめ必要となる index を作成しておきましょう。</p>
+
+<h4>参考</h4>
+
+<ul>
+<li><a href="http://elasticsearch-users.115913.n3.nabble.com/ProcessClusterEventTimeoutException-in-Elasticsearch-Is-this-timeout-value-configurable-If-yes-how-td4048308.html">ElasticSearch Users &ndash; ProcessClusterEventTimeoutException in Elasticsearch. Is this timeout value configurable? If yes how?</a></li>
+</ul>
+
+
+<h3>原因2: 処理キューが閾値を超えた場合にリクエストを破棄する</h3>
+
+<p>Elasticsearch はデフォルトで閾値を超えたキューを破棄する設定となっています。
+例えば index の作成は 50 個まで、bulk 処理は 20 個までといった具合。</p>
+
+<p>メモリの消費を抑え適切に管理するための設定ではあるのですが、
+この設定により作られるハズの index が作成されなかったり、
+投入されるハズの record が作成されなかったりします。</p>
+
+<h4>対策</h4>
+
+<p>Thread Pool のキューサイズを変更します。</p>
+
+<p>``` yaml /etc/elasticsearch/elasticsearch.yml</p>
+
+<h1>queue_size は実行するスレッドが存在せずペンディングされたリクエスト</h1>
+
+<h1>のキューの数の設定に使用します。キューが満杯の状態で</h1>
+
+<h1>リクエストが来た際には、そのリクエストは破棄されます。</h1>
+
+<h1>制限をしたくない場合には -1 を設定してください。</h1>
+
+<p>threadpool.index.queue_size: -1 # デフォルト 200
+threadpool.bulk.queue_size: -1 # デフォルト 50</p>
+
+<h1>threadpool.search.queue_size: -1</h1>
+
+<h1>threadpool.get.queue_size: -1</h1>
+
+<p>```</p>
+
+<p><em>注) サーバのスペック、処理したいデータ量に応じて設定してください。</em>
+<em>不適切な設定はメモリの過剰消費によるメモリ不足やスラッシングの原因となる可能性があります。</em></p>
+
+<h4>参考</h4>
+
+<ul>
+<li><a href="http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/modules-threadpool.html#modules-threadpool">Thread Pool [0.90]</a></li>
+<li><a href="https://github.com/elasticsearch/elasticsearch/issues/3888">Set queue sizes by default on bulk/index thread pools · Issue #3888 · elasticsearch/elasticsearch</a></li>
+</ul>
+
+
+<h3>原因3: データマッピングに失敗している</h3>
+
+<p>Elasticsearch は新たに投入される record を解析し、
+動的にデータ型を規定します。その後規定された型と合わないデータを
+投入しようとすると <code>MapperParsingException</code> が発生します。</p>
+
+<p>特に「日付のようなフィールド」を日付型と認識される可能性が
+あることに注意してください。</p>
+
+<p>次のログは日付型のフィールドに空文字を設定しようとした場合に出力されました。</p>
+
+<p>``` text /var/log/elasticsearch/elasticsearch.log
+[2014-01-31 12:39:07,907][DEBUG][action.bulk              ] [Nicholas Scratch] [logstash-2013.09.18][1] failed     to execute bulk item (index) index {[logstash-2013.09.18][xxxx_type][xxxxx_id_0000], source[{&hellip;.}]}
+org.elasticsearch.index.mapper.MapperParsingException: failed to parse [xxx_day]</p>
+
+<pre><code>    at org.elasticsearch.index.mapper.core.AbstractFieldMapper.parse(AbstractFieldMapper.java:416)
+</code></pre>
+
+<p>(&hellip;)
+Caused by: org.elasticsearch.index.mapper.MapperParsingException: failed to parse date field [], tried both date format [dateOptionalTime], and timestamp number with locale []</p>
+
+<pre><code>    at org.elasticsearch.index.mapper.core.DateFieldMapper.parseStringValue(DateFieldMapper.java:487)
+    at
+</code></pre>
+
+<p>(&hellip;)
+```</p>
+
+<h4>対策</h4>
+
+<p>Elasticsearch の Default Mapping 設定を見直しましょう。
+<code>default-mapping.json</code> という設定ファイルを作成することで、
+デフォルトのマッピング設定を変更することが可能です。</p>
+
+<p>``` json /etc/elasticsearch/default-mapping.json
+{</p>
+
+<pre><code>"_default_" : {
+    "properties" : {
+        "foo" : {"type" : "string"},
+        "bar" : {"type" : "string"}
+    }
+}
+</code></pre>
+
+<p>}
+```</p>
+
+<h4>参考</h4>
+
+<ul>
+<li><a href="http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/mapping-root-object-type.html">Root Object Type [0.90]</a></li>
+<li><a href="http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/mapping-object-type.html">Object Type [0.90]</a></li>
+<li><a href="http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/mapping-core-types.html">Core Types [0.90]</a></li>
+<li><a href="http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/mapping-date-format.html">Date Format [0.90]</a></li>
+</ul>
+
+
+<h2>症状②: 逆に登録される record が多い</h2>
+
+<p>登録されたデータが想定より多い。
+fluentd のログにリトライした形跡がある。</p>
+
+<h3>原因</h3>
+
+<p>Elasticsearch の負荷が高いため、登録処理自体は行われたものの
+fluentd へのリプライに失敗。その後 fluentd がリトライを試み、
+重複してデータが登録されたことが原因の可能性があります。</p>
+
+<h4>対策</h4>
+
+<p>なかなか難しい問題です&hellip;
+Elasticsearch 側でエラーが発生しないように頑張り、
+ある程度の重複の発生を受け入れる or 頑張って削除するのが現実的でしょうか。</p>
+
+<h4>参考</h4>
+
+<ul>
+<li><a href="https://github.com/uken/fluent-plugin-elasticsearch">uken/fluent-plugin-elasticsearch</a></li>
+</ul>
+
+
+<h2>症状③: Kibana で エラーが発生する（Parse Failure）</h2>
+
+<p>Kibana にて以下のようなエラーが発生する。</p>
+
+<p><code>Parse Failure [No mapping found for [@timestamp] in order to sort on]</code></p>
+
+<h3>原因</h3>
+
+<p>空の index に対して検索を行い処理に失敗している可能性があります。
+Kibana が生成するクエリの問題です。</p>
+
+<h4>対策</h4>
+
+<p>record が存在しない空の index は削除しましょう。</p>
+
+<h4>参考</h4>
+
+<ul>
+<li><a href="https://logstash.jira.com/browse/LOGSTASH-889">[LOGSTASH-889] Empty indices throw error &ndash; logstash.jira.com</a></li>
+</ul>
+
+
+<h2>症状4: Kibana で エラーが発生する（Could not contact Elasticsearch）</h2>
+
+<p>Kibana にて以下のエラーが発生する。</p>
+
+<p><code>text
+Error Could not contact Elasticsearch at http://x.x.x.x:9200. Please ensure that Elasticsearch is reachable from your system.
+</code></p>
+
+<p>また、 Elasticsearch のログには以下のようなエラーが記録される。</p>
+
+<p>``` text /var/log/elasticsearch/elasticsearch.log
+[2014-01-31 13:58:28,444][WARN ][http.netty               ] [Nicholas Scratch] Caught exception while handling client http traffic, closing connection [id: 0xad362931, /x.x.x.x:36389 => /x.x.x.x:9200]
+org.elasticsearch.common.netty.handler.codec.frame.TooLongFrameException: An HTTP line is larger than 4096 bytes.</p>
+
+<pre><code>    at org.elasticsearch.common.netty.handler.codec.http.HttpMessageDecoder.readLine(HttpMessageDecoder.java:642)
+    at org.elasticsearch.common.netty.handler.codec.http.HttpMessageDecoder.decode(HttpMessageDecoder.java:182)
+    (...)
+</code></pre>
+
+<p>```</p>
+
+<h3>原因</h3>
+
+<p>検索対象の index が多く、リクエスト URL の長さが規定値を上回っている可能性があります。</p>
+
+<h4>対策</h4>
+
+<p>Elasticsearch の <code>max_initial_line_length</code> を設定します。</p>
+
+<p><code>yaml /etc/elasticsearch/elasticsearch.yml
+(...)
+http.max_initial_line_length: 100k
+</code></p>
+
+<h4>参考</h4>
+
+<ul>
+<li><a href="http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/modules-http.html">HTTP [0.90]</a></li>
+</ul>
+
+
+<h1>（おまけ）Elasticsearch スニペット</h1>
+
+<ul>
+<li><p>全 index の取得</p>
+
+<p>  <code>curl -XGET http://localhost:9200/_aliases?pretty=1</code></p></li>
+<li><p>type を指定して取得</p>
+
+<p>  <code>curl -XGET 'http://localhost:9200/_all/my_type/_search?pretty'</code></p></li>
+<li><p>全 index の削除</p>
+
+<p>  <code>curl -XDELETE 'http://localhost:9200/_all'</code></p></li>
+<li><p>type を指定して削除</p>
+
+<p>  <code>curl -XDELETE 'http://localhost:9200/_all/my_type/'</code></p></li>
+</ul>
+
+
+<h1>参考</h1>
+
+<ul>
+<li><a href="http://blog.johtani.info/images/entries/20130830/IntroductionES20130829.pdf">blog.johtani.info/images/entries/20130830/IntroductionES20130829.pdf</a></li>
+<li><a href="http://blog.sematext.com/2013/07/08/elasticsearch-refresh-interval-vs-indexing-performance/">Elasticsearch Refresh Interval vs Indexing Performance | Sematext Blog</a></li>
+<li><a href="http://y-ken.hatenablog.com/entry/fluentd-elasticsearch-kibana-index-partitioning">Fluentd+Elasticsearch+Kibana構成で便利な、logstash形式インデックスの粒度をカスタマイズする方法 &ndash; Y-Ken Studio</a></li>
+<li><a href="http://www.slideshare.net/JunOhtani/elasticsearch-pyfes-201207">Elasticsearch入門 pyfes 201207</a></li>
+<li><a href="http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/docs-bulk.html">Bulk API [0.90]</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+</feed>
