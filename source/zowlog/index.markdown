@@ -12,7 +12,7 @@ footer: true
 ZowLog
 ==========
 
-One note for one day! 
+One note for one day!  
 Super fast Evernote client so you never forget the moment. 
 
 ZowLog is the best tool to write a diary, short memo, or business log to Evernote. 
