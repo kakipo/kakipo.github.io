@@ -12,13 +12,13 @@ footer: true
 ZowLog
 ==========
 
-Super fast Evernote client to never forget the moment.
+One note for one day! 
+Super fast Evernote client so you never forget the moment. 
 
-ZowLog is the best tool to write a diary, short memo, business log to Evernote.  
-It appends your memo to a note created once a day.
+ZowLog is the best tool to write a diary, short memo, or business log to Evernote. 
 
-You'll never worry about mess up notebooks. 
+It appends your memo to a note created once a day.  
+You'll never have to worry about messed up your notebooks. 
 
-\* Evernote account is required.
-
+Evernote must be running in order to use this application.
 
