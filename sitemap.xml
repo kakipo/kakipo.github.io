@@ -2,34 +2,38 @@
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
         <loc>http://blog.kakipo.com/how-to-pick-rdbms-and-nosql/</loc>
-        <lastmod>2014-02-19T01:08:35+09:00</lastmod>
+        <lastmod>2014-03-17T08:40:16+09:00</lastmod>
     </url>
     <url>
         <loc>http://blog.kakipo.com/trouble-with-fluentd-and-elasticsearch/</loc>
-        <lastmod>2014-02-19T01:08:35+09:00</lastmod>
+        <lastmod>2014-03-17T08:40:16+09:00</lastmod>
     </url>
     <url>
         <loc>http://blog.kakipo.com/planning/</loc>
-        <lastmod>2014-03-11T08:35:50+09:00</lastmod>
+        <lastmod>2014-03-17T08:40:16+09:00</lastmod>
+    </url>
+    <url>
+        <loc>http://blog.kakipo.com/zowlog-release/</loc>
+        <lastmod>2014-03-18T01:32:32+09:00</lastmod>
     </url>
     <url>
         <loc>http://blog.kakipo.com/blog/archives/</loc>
-        <lastmod>2014-03-11T08:35:50+09:00</lastmod>
+        <lastmod>2014-03-18T01:32:32+09:00</lastmod>
     </url>
     <url>
         <loc>http://blog.kakipo.com/blog/</loc>
-        <lastmod>2014-03-11T08:35:50+09:00</lastmod>
+        <lastmod>2014-03-18T01:32:32+09:00</lastmod>
     </url>
     <url>
         <loc>http://blog.kakipo.com/</loc>
-        <lastmod>2014-03-11T08:35:50+09:00</lastmod>
+        <lastmod>2014-03-18T01:32:32+09:00</lastmod>
     </url>
     <url>
         <loc>http://blog.kakipo.com/robots.txt</loc>
-        <lastmod>2014-02-19T01:08:35+09:00</lastmod>
+        <lastmod>2014-03-17T08:40:16+09:00</lastmod>
     </url>
     <url>
         <loc>http://blog.kakipo.com/ZowLog/</loc>
-        <lastmod>2014-03-11T08:30:01+09:00</lastmod>
+        <lastmod>2014-03-17T08:40:16+09:00</lastmod>
     </url>
 </urlset>
