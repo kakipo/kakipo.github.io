@@ -4,7 +4,7 @@
   <title><![CDATA[Category: ZowLog | diaspora]]></title>
   <link href="http://blog.kakipo.com/blog/categories/zowlog/atom.xml" rel="self"/>
   <link href="http://blog.kakipo.com/"/>
-  <updated>2014-03-21T10:19:58+09:00</updated>
+  <updated>2014-04-25T21:16:48+09:00</updated>
   <id>http://blog.kakipo.com/</id>
   <author>
     <name><![CDATA[kakipo]]></name>
@@ -12,6 +12,33 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[ZowLog 1.2 をリリースしました]]></title>
+    <link href="http://blog.kakipo.com/zowlog-1-dot-2/"/>
+    <updated>2014-04-25T20:11:37+09:00</updated>
+    <id>http://blog.kakipo.com/zowlog-1-dot-2</id>
+    <content type="html"><![CDATA[<p>ZowLog の新バージョン 1.2 をリリースしました。<br/>
+＃ZowLog のご紹介はこちらから → <a href="/zowlog-release">ZowLog という Mac 用メモツールを作りました</a></p>
+
+<p><span class="no-shadow">
+<a href="https://itunes.apple.com/us/app/zowlog/id823917791?ls=1&amp;mt=12"><img src="/images/zowlog/zowlog-256.png" alt="&quot;ZowLog&quot;" /></a>
+</span></p>
+
+<p><a href="https://itunes.apple.com/us/app/zowlog/id823917791?ls=1&amp;mt=12"><img src="/images/zowlog/appstore.png" alt="&quot;ZowLog&quot;" /></a></p>
+
+<p>バージョン 1.2 では Evernote を起動していない状態でもメモを取ることができるようになりました。</p>
+
+<p>また、「フォントサイズを大きくして欲しい」「等幅フォントで編集したい」というご要望にお応えして、編集時のフォントを選択できるようになりました！<br/>
+＃Evernote には標準フォントで書き込まれます</p>
+
+<p><img src="/images/zowlog/change-font.gif" alt="&quot;Change font&quot;" /></p>
+
+<p>より使いやすくなった ZowLog を是非お試しください。</p>
+
+<p><a href="https://itunes.apple.com/jp/app/zowlog/id823917791?mt=12">Mac App Store &ndash; ZowLog</a></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[ZowLog という Mac 用メモツールを作りました]]></title>
@@ -54,15 +81,22 @@
 
 <p>快適。</p>
 
-<p>ただし <strong>ZowLog を利用するには Evernote が起動している必要があります</strong>。</p>
+<p><del>ただし <strong>ZowLog を利用するには Evernote が起動している必要があります</strong>。</del></p>
 
-<p>この辺のデザインは非常に悩んだところではあります。<br/>
-とにかくストレスなくサササッと書き込めることを優先し、今の仕様となりました。</p>
+<p><del>この辺のデザインは非常に悩んだところではあります。  </del>
+<del>とにかくストレスなくサササッと書き込めることを優先し、今の仕様となりました。</del></p>
 
-<p>「Mac でメモ取るヒトは Evernote の一つや二つ、起動しとるじゃろ。オフラインで使えんくなるのもよぉないしの。」</p>
+<p><del>「Mac でメモ取るヒトは Evernote の一つや二つ、起動しとるじゃろ。オフラインで使えんくなるのもよぉないしの。」</del></p>
 
-<p>と、勝手に想像していましたが、Evernote を起動していない状態でも利用したいという声を早速もらっているので今後対応したいと思います。<br/>
-ブラウザから Evernote を使う人がいるとは。使いにくくないですか。そんなことない？今度使ってみます。</p>
+<p><del>と、勝手に想像していましたが、Evernote を起動していない状態でも利用したいという声を早速もらっているので今後対応したいと思います。  </del>
+<del>ブラウザから Evernote を使う人がいるとは。使いにくくないですか。そんなことない？今度使ってみます。</del></p>
+
+<blockquote>
+（2014-04-25 追記）  <br />
+バージョン 1.2 より Evernote が起動していない状態でもメモをとれるようになりました！  <br />
+<a href="http://blog.kakipo.com/zowlog-1-dot-2">ZowLog 1.2 をリリースしました</a>
+</blockquote>
+
 
 <h1>考えるために書く</h1>
 
