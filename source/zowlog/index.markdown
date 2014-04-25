@@ -22,8 +22,6 @@ ZowLog is the best tool to write a diary, short memo, or business log to Evernot
 It appends your memo to a note created once a day.  
 You'll never have to worry about messed up your notebooks. 
 
-Evernote must be running in order to use this application.
-
 
 ![ZowLog](/images/zowlog/capture-1.png)
 
