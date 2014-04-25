@@ -1,0 +1,27 @@
+---
+layout: post
+title: "ZowLog 1.2 をリリースしました"
+date: 2014-04-25 20:11:37 +0900
+comments: true
+categories: ZowLog
+---
+
+ZowLog の新バージョン 1.2 をリリースしました。  
+＃ZowLog のご紹介はこちらから → [ZowLog という Mac 用メモツールを作りました](/zowlog-release)
+
+<span class="no-shadow">
+[!["ZowLog"](/images/zowlog/zowlog-256.png)](https://itunes.apple.com/us/app/zowlog/id823917791?ls=1&mt=12)
+</span>
+
+[!["ZowLog"](/images/zowlog/appstore.png)](https://itunes.apple.com/us/app/zowlog/id823917791?ls=1&mt=12)
+
+バージョン 1.2 では Evernote を起動していない状態でもメモを取ることができるようになりました。
+
+また、「フォントサイズを大きくして欲しい」「等幅フォントで編集したい」というご要望にお応えして、編集時のフォントを選択できるようになりました！  
+＃Evernote には標準フォントで書き込まれます
+
+!["Change font"](/images/zowlog/change-font.gif)
+
+より使いやすくなった ZowLog を是非お試しください。
+
+[Mac App Store - ZowLog](https://itunes.apple.com/jp/app/zowlog/id823917791?mt=12)
