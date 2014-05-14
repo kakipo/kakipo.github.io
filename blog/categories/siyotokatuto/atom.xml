@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: ショートカット | diaspora]]></title>
+  <link href="http://blog.kakipo.com/blog/categories/siyotokatuto/atom.xml" rel="self"/>
+  <link href="http://blog.kakipo.com/"/>
+  <updated>2014-03-21T10:19:58+09:00</updated>
+  <id>http://blog.kakipo.com/</id>
+  <author>
+    <name><![CDATA[kakipo]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[いつになったら覚えるの？]]></title>
+    <link href="http://blog.kakipo.com/mac-special-key/"/>
+    <updated>2014-03-21T09:52:19+09:00</updated>
+    <id>http://blog.kakipo.com/mac-special-key</id>
+    <content type="html"><![CDATA[<p>いつまでたっても覚えられないのでつくりました。<br/>
+デスクトップの端っこに置いています。</p>
+
+<p><img src="/images/mac-special-key-symbols-small.png" alt="&quot;mac special key symbols&quot;" /></p>
+
+<p>command は分かるんだよ。command は。</p>
+
+<p>いつまでたっても覚えられないのでカレンダーにしてみました。<br/>
+壁に貼って覚えようと思います。</p>
+
+<p><img src="/images/mac-special-key-symbols-calendar.jpg" alt="&quot;special key symbols calendar&quot;" /></p>
+
+<p>大きいサイズの画像はこちらから。ご自由にお使いください。<br/>
+<a href="/images/mac-special-key-symbols-big.png">mac-special-key-symbols-big.png (1200x1200)</a></p>
+]]></content>
+  </entry>
+  
+</feed>
