@@ -4,13 +4,111 @@
   <title><![CDATA[diaspora]]></title>
   <link href="http://blog.kakipo.com/atom.xml" rel="self"/>
   <link href="http://blog.kakipo.com/"/>
-  <updated>2014-04-25T22:18:46+09:00</updated>
+  <updated>2014-06-03T07:11:45+09:00</updated>
   <id>http://blog.kakipo.com/</id>
   <author>
     <name><![CDATA[kakipo]]></name>
     
   </author>
 
+  
+  <entry>
+    <title type="html"><![CDATA[エンジニアから見た WWDC 2014 雑感]]></title>
+    <link href="http://blog.kakipo.com/wwdc2014/"/>
+    <updated>2014-06-03T06:31:00+09:00</updated>
+    <id>http://blog.kakipo.com/wwdc2014</id>
+    <content type="html"><![CDATA[<p>ハードウェアの発表はなかったんですね。<br/>
+しかし、エンジニア的には衝撃的＆ワクワクする内容が多かった印象です。</p>
+
+<h1>衝撃</h1>
+
+<h2>Swift</h2>
+
+<p>冒頭から衝撃的。<br/>
+朝起きたら Objective-C が死んでいた。
+Apple がハシゴを外すのはもはやお家芸か。</p>
+
+<p>パッと見た限り、LL っぽくて書きやすくなりそう。
+インタラクティブシェルもあるみたい。いいねいいね。
+Objective-C とも同居できるようなので大きな混乱はないのでは。</p>
+
+<p>パフォーマンス面でもネイティブコードに変換されるそうなので、問題なさそう。RubyMotion と同じ仕組みなのかな。</p>
+
+<p><a href="https://devimages.apple.com.edgekey.net/swift/images/swift-title.png">Swift &ndash; Apple Developer</a></p>
+
+<h2>Extensibility</h2>
+
+<p>iOS アプリ間連携がよりスムーズになる。<br/>
+Cocoa App 開発でよくつかう Scripting Bridge 機能の iOS 版か。
+今後は iOS アプリ開発も他アプリとの連携を考えることが大切になりそう。</p>
+
+<h2>CloudKit</h2>
+
+<p>サーバサイドでの認証、ストレージ、検索機能を Apple が提供。基本無料。
+開発者としては心理的、金銭的、時間的負担が下がりメリットありまくり。Apple ロックインが加速する。BaaS 死亡のお知らせか。</p>
+
+<h1>ワクワク</h1>
+
+<h2>AirDrop の Mac &lt;&ndash;> iOS 対応</h2>
+
+<p>いままでは iOS 同士または Mac 同士限定だった AirDrop が Mac &lt;&ndash;> iOS 間で動作可能に。アプリ開発にキャプチャとって Mac に送るということが多いので結構うれしい。</p>
+
+<h2>家族間共有</h2>
+
+<p>iPhone はパーソナルユースに。iPad はリビングに 1 台というシナリオがしっくりくると思うのでとても良い。</p>
+
+<h2>HealthKit</h2>
+
+<p>まずは SDK から公開。ハードも同時にくるかと思ったが。
+健康アプリがますます増えそうで良い。
+BLE を利用したガジェットとの連携も楽しみである。
+先進的な病院へ自身の健康情報を共有するような未来は近いかもしれない。</p>
+
+<h2>Shazam 統合</h2>
+
+<p>ホームボタン長押しで曲名判明 &ndash;> iTunes Store で購入とシナリオは多くなりそうでとても嬉しい。音楽体験が変わりそう。</p>
+
+<h2>TestFlight 機能追加</h2>
+
+<p>詳細はわからないけれど、大好きなサービスなので期待。</p>
+
+<h2>HomeKit</h2>
+
+<p>これも詳細分からないけれど、Siri との連携が用意なら夢は膨らみそう。シームレスな体験が期待できそう。</p>
+
+<h1>その他</h1>
+
+<ul>
+<li>Yosemite はフラットな UI<br/>
+  お、おう</li>
+<li>タイトルバーはコンテンツに応じて変わる半透明<br/>
+  うん</li>
+<li>iMessage アプリをシームレスに、機能追加。Mac から電話もできるぞ！<br/>
+  早くどこか買収すればよかったのに</li>
+<li>Safari UI &amp; パフォーマンス改善<br/>
+  使わない</li>
+<li>Mail UI &amp; パフォーマンス改善<br/>
+  使わない</li>
+<li>カレンダー UI &amp; パフォーマンス改善<br/>
+  使わない</li>
+<li>通知センター改善<br/>
+  使わない</li>
+<li>QuickType<br/>
+  使ってみると便利なのかも。</li>
+<li>フォトアプリ改善<br/>
+  うん</li>
+<li>iCloud Drive、容量アップ<br/>
+  おそらく、使わない</li>
+<li>AppStore アップグレード<br/>
+  ASO の会社しばらく大変そうだ</li>
+<li>Touch ID API<br/>
+  iPhone 5 なので。ロック画面とアプリ内で 2 段階認証は安心と思いつつ、乱用するとユーザには嫌われそう。</li>
+<li>Metal &amp; SpriteKit<br/>
+  多分使わない</li>
+</ul>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[ZowLog 1.2 をリリースしました]]></title>
