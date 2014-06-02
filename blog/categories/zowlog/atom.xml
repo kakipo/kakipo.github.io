@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: ZowLog | diaspora]]></title>
+  <link href="http://blog.kakipo.com/blog/categories/zowlog/atom.xml" rel="self"/>
+  <link href="http://blog.kakipo.com/"/>
+  <updated>2014-03-21T10:19:58+09:00</updated>
+  <id>http://blog.kakipo.com/</id>
+  <author>
+    <name><![CDATA[kakipo]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[ZowLog という Mac 用メモツールを作りました]]></title>
+    <link href="http://blog.kakipo.com/zowlog-release/"/>
+    <updated>2014-03-17T23:25:27+09:00</updated>
+    <id>http://blog.kakipo.com/zowlog-release</id>
+    <content type="html"><![CDATA[<p>ZowLog という Mac アプリを作りました。</p>
+
+<p><span class="no-shadow">
+<a href="https://itunes.apple.com/us/app/zowlog/id823917791?ls=1&amp;mt=12"><img src="/images/zowlog/zowlog-256.png" alt="&quot;ZowLog&quot;" /></a>
+</span></p>
+
+<p><a href="https://itunes.apple.com/us/app/zowlog/id823917791?ls=1&amp;mt=12"><img src="/images/zowlog/appstore.png" alt="&quot;ZowLog&quot;" /></a></p>
+
+<p>ZowLog はすばやくメモを書くためのツールです。Evernote に 1 日 1 つだけノートを作り、メモを追記していきます。</p>
+
+<p>もしあなたが一日中 Mac の前でお仕事をされているのであれば、ピッタリのツールです。</p>
+
+<p><strong>有料です</strong>。200円。<br/>
+売上は我が家のネコのカンヅメ代になります。ニャ。</p>
+
+<p>日常的に Evernote を使ってメモをとられているのであれば、すぐに元を取っていただけると思います。</p>
+
+<p>App Store からダウンロードできます。</p>
+
+<p><a href="https://itunes.apple.com/us/app/zowlog/id823917791?ls=1&amp;mt=12">Mac App Store &ndash; ZowLog</a></p>
+
+<h1>何がうれしいの？</h1>
+
+<p>はやいです。思いついたらすぐに起動、メモをとり始めることができます。</p>
+
+<p>1 日に 1 ノート、時刻つきでメモが追記されていくため、自分だけのタイムラインのように使うこともできます。共有ノートブックに保存するよう設定すれば、チーム内の簡易業務日報ツールとして使うこともできるかもしれません。</p>
+
+<p><img src="/images/zowlog/movie.gif" alt="&quot;ZowLog&quot;" /></p>
+
+<p>このテのアプリ、iPhone や Android ではたくさんあるのですが、Mac には見当たらなかったので作りました。
+私自身ほぼ一日中 Mac の前にいるため、Mac 上で簡単に Evernote にメモできるアプリが欲しかったのです。</p>
+
+<p>外（あまりないですが）では iPhone アプリでメモを書き、オフィスや自宅では ZowLog でメモを書いています。どちらも書き込み先のノートは同じもの。1 日 1 ノートにまとめることでノートブックが散らからないよう意識しています。</p>
+
+<p>快適。</p>
+
+<p>ただし <strong>ZowLog を利用するには Evernote が起動している必要があります</strong>。</p>
+
+<p>この辺のデザインは非常に悩んだところではあります。<br/>
+とにかくストレスなくサササッと書き込めることを優先し、今の仕様となりました。</p>
+
+<p>「Mac でメモ取るヒトは Evernote の一つや二つ、起動しとるじゃろ。オフラインで使えんくなるのもよぉないしの。」</p>
+
+<p>と、勝手に想像していましたが、Evernote を起動していない状態でも利用したいという声を早速もらっているので今後対応したいと思います。<br/>
+ブラウザから Evernote を使う人がいるとは。使いにくくないですか。そんなことない？今度使ってみます。</p>
+
+<h1>考えるために書く</h1>
+
+<p><img src="/images/zowlog/writing-2.png" alt="&quot;ZowLog&quot;" /></p>
+
+<p>以下は余談です。</p>
+
+<p>「考えるために書く」という行為がもっと意識されるようになると良いなと思っています。</p>
+
+<p>書いて→伝える、だけではなくて。
+書いて→考えて→書いて→考えて→（ループ）。</p>
+
+<p>Facebook や Twitter に少しだけマジメな投稿を書いている時、「へぇ、私ってこんなふうに考えてたのね」と自身の意外な考えに気づいた経験、ありませんか。書いている時は同時に考えてもいるのです。</p>
+
+<p>当たり前のようですけれど、意外と見過ごされがちなのかな、と。<br/>
+書くことは考えることを強制する力があるみたいです。</p>
+
+<p>例えば「今回の都知事選について」とか「あの話題のサービスを評価してやる」とか。書こうと思うと脳みそグルグル回転しませんか。「お台場に来た！」とか「今日は朝からパンケーキ☆」っていうのはなんていうか、ベツモノな気がしますけれど。</p>
+
+<p>SNS やメールやメッセージングアプリを使うようになって、他人に対して「書く」機会は増えました。自分のために、考えるために「書く」機会が増えても良いんじゃないかなと。</p>
+
+<p>私達の頭の中はとても複雑で、不安定です。フワフワして不透明で、曖昧で移ろいがちです。何かを考えているときにも、あっちが気になり、こっちが気になり、結局何を考えていたんだっけ？と迷子になる。「書く」ことは、そんな嵐の海にも似た荒れる意識の中にゆっくりと沈み込み、静かに自分自身と対話するための良きパートナーとなってくれるでしょう。</p>
+
+<p>伝達の手段として「書く」だけではなく、ふわふらとしたアイディアを一歩一歩踏み固め、まとめるために「書く」ことがもっと認識されると良いと思っています。</p>
+
+<h1>シェアする</h1>
+
+<p><img src="/images/zowlog/writing-3.png" alt="&quot;ZowLog&quot;" /></p>
+
+<p>書いて→考えて→書いて→考えて→（ループ）→ <strong>伝える</strong></p>
+
+<p>考えるために書いたメモはごく個人的なモノなので、ある程度まで整理できてしまえば捨ててしまって構わないです。でも、せっかくなら誰かに伝えると世界は少しだけよくなるかも。いいね！されたりリツイートされると承認欲求も満たせて自分も嬉しい。</p>
+
+<p>ボク自身はエンジニアということもあり、普段は技術的なコトガラをメモすることが多いです。どこでハマったか、どうやって解決しようとしたか、面白いツールやライブラリを見つけた、とか。その中でも有用だと思ったことは少しだけ時間をかけてまとめて、Qiita やチーム内の Wiki や Chatwork などにポストしています。</p>
+
+<p>ちょっとしたアイディアやヒトの反応を知りたいものは Twitter や Facebook にポストすることもあります。気持ちを整理するために書く感情的なメモはインターネットにはあまり公開しません。読んでみて気持ちの良いものではないですしね。</p>
+
+<p>ボクは ZowLog + Evernote が一番使いやすいのですが、手に馴染むものであれば何でも良いです。それぞれが使いやすいツールを使うのが一番。紙とペンでもいい。Evernote でも emacs でも Sublime Text でもなんでも (vim でも)。お気に入りのエディタでメモを書いてみましょう！</p>
+
+<h1>おわりに</h1>
+
+<p>「考えるために書く」というお話は古今東西いろいろなところで話されていて特に目新しい話題ではないかもしれません。悩みがあれば書き出してみなさい、とか、新しい企画を立てるときにはマインドマップを書くとか。でも、そんな身構えなくてももっと自由に書き散らかしていいと思います。悩みが無くても企画を考えるのではなくても、もっと日常的に書いてみませんか。</p>
+
+<h1>参考</h1>
+
+<p>様々な小説、エッセイ、ブログ記事で「書く」ことによる効果を述べています。</p>
+
+<ul>
+<li><a href="http://nando.seesaa.net/article/51904501.html">◆ なぜ言語力が重要か？: 　nando ブログ</a></li>
+<li><a href="http://www.paulgraham.com/writing44.html">Writing, Briefly</a></li>
+<li><a href="http://canvasdialy.blog.so-net.ne.jp/2012-09-17">考えてからではなく考えるためにボクは書く。：平尾剛のCANVAS.日記：So-net blog</a></li>
+<li><a href="http://www.amazon.co.jp/exec/obidos/ASIN/4101001405/nowshika-22/ref=nosim/">Amazon.co.jp： 村上朝日堂はいほー! (新潮文庫): 村上 春樹: 本</a></li>
+<li><a href="http://www.amazon.co.jp/%E3%80%8C%E8%80%83%E3%81%88%E3%82%8B%E3%80%8D%E3%81%9F%E3%82%81%E3%81%AE%E5%B0%8F%E8%AB%96%E6%96%87-%E3%81%A1%E3%81%8F%E3%81%BE%E6%96%B0%E6%9B%B8-%E8%A5%BF-%E7%A0%94/dp/4480057102">Amazon.co.jp： 「考える」ための小論文 (ちくま新書): 西 研, 森下 育彦: 本</a></li>
+<li><a href="http://d.hatena.ne.jp/naoya/20131107/1383792634">「書く」のは特別な道具 &ndash; naoyaのはてなダイアリー</a></li>
+<li><a href="http://gitanez.seesaa.net/article/73819075.html">「考える」方法を学ぶ: DESIGN IT! w/LOVE</a></li>
+<li><a href="http://www.ias.sci.waseda.ac.jp/GraduationThesis/2011_summary/1w080525_s.pdf">「考える」ための「書く」情報処理支援システムの提案 (PDF)</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+</feed>
