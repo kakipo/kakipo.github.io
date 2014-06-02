@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: iBeacon | diaspora]]></title>
+  <link href="http://blog.kakipo.com/blog/categories/ibeacon/atom.xml" rel="self"/>
+  <link href="http://blog.kakipo.com/"/>
+  <updated>2014-06-03T07:28:12+09:00</updated>
+  <id>http://blog.kakipo.com/</id>
+  <author>
+    <name><![CDATA[kakipo]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Web ディレクターのための iBeacon 入門]]></title>
+    <link href="http://blog.kakipo.com/ibeacon-at-garage-akihabara/"/>
+    <updated>2014-05-14T10:25:13+09:00</updated>
+    <id>http://blog.kakipo.com/ibeacon-at-garage-akihabara</id>
+    <content type="html"><![CDATA[<p>2014-05-12 <a href="http://garage-working.com/">GARAGE AKIHABARA</a> にて、「Web ディレクターのための iBeacon 入門」と題したプレゼンを行いました。</p>
+
+<ul>
+<li>iBeacon って最近よく聞くけど何なの？</li>
+<li>iBeacon を使うとなにが嬉しいの？</li>
+</ul>
+
+
+<p>などの基本的な知識に加え、今後現場で活かせる知識を得ていただけることを目指しました。</p>
+
+<script async class="speakerdeck-embed" data-id="6b34df80bc12013182c74af3413e5309" data-ratio="1.33333333333333" src="http://blog.kakipo.com//speakerdeck.com/assets/embed.js"></script>
+
+
+<p>今のトコロ利用されているのは O2O の文脈や展示品の解説などといったシーンが多い印象ですが、 iBeacon の仕様は比較的シンプルであるため扱いやすく、また端末自体も非常に安価なため様々な場面で応用が効くかと思います。<br/>
+今後どのようなサービスが展開されていくか、とても楽しみですね。</p>
+]]></content>
+  </entry>
+  
+</feed>
