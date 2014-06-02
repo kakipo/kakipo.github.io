@@ -26,7 +26,14 @@ Objective-C とも同居できるようなので大きな混乱はないので�
 
 パフォーマンス面でもネイティブコードに変換されるそうなので、問題なさそう。RubyMotion と同じ仕組みなのかな。
 
-[Swift - Apple Developer](https://devimages.apple.com.edgekey.net/swift/images/swift-title.png)
+[Swift - Apple Developer](https://developer.apple.com/swift/)
+
+追記: 2014-06-03 現在「swift lang」でググると別の言語がトップに表示される。  
+しばらくはネタとして揶揄されるんだろうな。罪のない言語を死滅においやる Apple △。
+
+Apple「オレがルールだ！」
+
+[swift-lang.org](http://swift-lang.org/)
 
 Extensibility
 -------------
@@ -48,7 +55,7 @@ CloudKit
 AirDrop の Mac <-> iOS 対応
 ----------
 
-いままでは iOS 同士または Mac 同士限定だった AirDrop が Mac <-> iOS 間で動作可能に。アプリ開発にキャプチャとって Mac に送るということが多いので結構うれしい。
+いままでは iOS 同士または Mac 同士限定だった AirDrop が Mac <-> iOS 間で動作可能に。アプリ開発時にキャプチャとって Mac に送るということが多いので結構うれしい。
 
 
 家族間共有
