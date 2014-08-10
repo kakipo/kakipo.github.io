@@ -4,7 +4,7 @@
   <title><![CDATA[Category: docker | diaspora]]></title>
   <link href="http://blog.kakipo.com/blog/categories/docker/atom.xml" rel="self"/>
   <link href="http://blog.kakipo.com/"/>
-  <updated>2014-08-10T11:45:00+09:00</updated>
+  <updated>2014-08-10T15:44:29+09:00</updated>
   <id>http://blog.kakipo.com/</id>
   <author>
     <name><![CDATA[kakipo]]></name>
@@ -176,7 +176,7 @@ RUN rm -rf /etc/service/sshd /etc/my_init.d/00_regen_ssh_host_keys.sh
 <h2>利点</h2>
 
 <ul>
-<li>コンテナ内で sshd の起動が必要</li>
+<li>コンテナ内で sshd の起動が不要</li>
 <li>ssh キー設定が不要</li>
 <li>どんなコンテナでも利用可能</li>
 </ul>
