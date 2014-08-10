@@ -4,13 +4,267 @@
   <title><![CDATA[diaspora]]></title>
   <link href="http://blog.kakipo.com/atom.xml" rel="self"/>
   <link href="http://blog.kakipo.com/"/>
-  <updated>2014-06-03T07:28:12+09:00</updated>
+  <updated>2014-08-10T11:45:00+09:00</updated>
   <id>http://blog.kakipo.com/</id>
   <author>
     <name><![CDATA[kakipo]]></name>
     
   </author>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Docker 初心者は phusion/baseimage-docker を使おう]]></title>
+    <link href="http://blog.kakipo.com/use-phusion-baseimage-docker/"/>
+    <updated>2014-08-10T08:44:51+09:00</updated>
+    <id>http://blog.kakipo.com/use-phusion-baseimage-docker</id>
+    <content type="html"><![CDATA[<h1>tl;dr</h1>
+
+<p>Docker 初心者は <a href="https://github.com/phusion/baseimage-docker">phusion/baseimage-docker</a> をベースイメージとして使おう。<br/>
+色々と便利だしハマる機会が減る。</p>
+
+<h1>遅ればせながら Docker 入門した</h1>
+
+<p>新たにアプリケーションを作る機会があり、週末を利用し遅ればせながら Docker について調べた。<br/>
+すでにネット上に多くの入門記事がアップされていたおかげで導入自体は簡単にできたが、「まともな」イメージを作成しようとすると壁にぶちあたることになった。たとえば&hellip;</p>
+
+<ul>
+<li>コンテナに ssh 接続するにはどうすればいいの？</li>
+<li>syslog 起動してないの？</li>
+<li>cron は？</li>
+<li>解析のために fluentd とか newrelic agent とかも入れたいな&hellip;</li>
+</ul>
+
+
+<p>いずれも 1 コンテナ 1 プロセスしか許容されていないという思い込みによるもので、Docker 入門者の多くが通る道なようだ。</p>
+
+<p>公式ドキュメントをちゃんと読めば複数プロセスを生やすために Supervisor を利用する方法が紹介されている。</p>
+
+<p><a href="https://docs.docker.com/articles/using_supervisord/">Using Supervisor &ndash; Docker Documentation</a></p>
+
+<p>まぁ、これはこれで良いのだけれど個人的には <a href="https://github.com/phusion/baseimage-docker">phusion/baseimage-docker</a> の利用をオススメしたい。</p>
+
+<p>複数プロセス管理以外にも Docker を使う上で便利な各種ツールや様々な問題を回避するための仕組みが用意されている。</p>
+
+<p>積極的に巨人の肩に乗るべきだ。特に自分のような初心者は。</p>
+
+<h1>phusion/baseimage-docker とは</h1>
+
+<p>phusion/baseimage-docker（以下 baseimage-docker） とは <a href="https://www.phusionpassenger.com/">Phusion Passenger</a> という有名なソフトウェアを作成している Phusion が開発を続けている Docker イメージだ。</p>
+
+<p>Phusion Passenger 自体は Rails アプリ開発者であれば一度は目にしたことがあると思う。Nginx や Apache の設定ファイルにちょろっと書くだけで、それらがアプリサーバに変わって動作してくれるという画期的なソフトウェアだ。公式サイトを見たら Python や Node.js にも対応しているらしい。知らなかった。</p>
+
+<p>話がそれた。</p>
+
+<p>baseimage-docker の利点として先にも述べたように、Docker を利用するにあたってぶち当たるであろう様々な問題を回避するための仕組みが用意されている。</p>
+
+<p>いくつか紹介したい。</p>
+
+<ul>
+<li><p>正しい init プロセス<br/>
+  Unix プロセスモデルでは init プロセス (PID 1) はすべての孤児プロセス（親プロセスが終了したプロセス）を回収し、正しく終了するという責務がある。しかしほとんどの Docker コンテナはこれを正しく行えていないために、ゾンビプロセスが発生しうる。<br/>
+  また、 <code>docker stop</code> は 全プロセスを終了するために <code>SIGTERM</code> を init プロセスに送るのだが、残念ながらほとんどの init システムはハードウェアシャットダウンを前提としており Docker 内で正しく動作しない。これによりプロセスは <code>SIGKILL</code> によって殺され、正常終了せず、ファイルの破損が発生しうる。<br/>
+  baseimage-docker は <code>/sbin/my_init</code> という init プロセスを利用することによってこれらの問題に対応する。</p></li>
+<li><p>syslog-ng<br/>
+  syslog はどんな場合でも必要だろう。baseimage-docker にははじめから syslog-ng が同梱されている。</p></li>
+<li><p>SSH Server<br/>
+  Docker には nsenter というツールが用意されているが、いくつか問題もある。使い慣れた SSH が利用できるのであれば幸せだ。baseimage-docker はデフォルトで SSH を利用でき、気になる場合には実行しないことも可能だ。（後述）</p></li>
+<li><p>cron<br/>
+  あると何かと役に立つだろう。</p></li>
+<li><p>runit<br/>
+  複数プロセスの管理に利用する。起動スクリプトをちょろっと書いて特定フォルダにいれるだけで良いのが有り難い（後述）</p></li>
+<li><p>setuser<br/>
+  特定のコマンドを別ユーザで実行するための便利ツール。 <code>su</code> より使いやすい。</p></li>
+</ul>
+
+
+<p>init プロセス云々で分かるように Docker を使おうと思えば、一定の UNIX の知識を要する。これが過渡的なものなのか、そのうち解決されて誰でも気軽に使えるようになるのかは分からないけれど。</p>
+
+<p>以下ではより詳しく baseimage-docker について紹介したい。</p>
+
+<h1>複数プロセスを管理する</h1>
+
+<p>baseimage-docker では <code>/etc/service/&lt;サービス名&gt;</code> に <code>run</code> という名前をつけたシェルスクリプトをおくだけで、デーモンとして起動してくれるようになる。</p>
+
+<p>公式よりサンプルを引用。
+memcache ユーザで memcached を起動するスクリプト。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="c">### In memcached.sh (make sure this file is chmod +x):</span>
+</span><span class='line'><span class="c">#!/bin/sh</span>
+</span><span class='line'><span class="c"># `/sbin/setuser memcache` runs the given command as the user `memcache`.</span>
+</span><span class='line'><span class="c"># If you omit that part, the command will be run as root.</span>
+</span><span class='line'><span class="nb">exec</span> /sbin/setuser memcache /usr/bin/memcached &gt;&gt;/var/log/memcached.log 2&gt;&amp;1
+</span><span class='line'>
+</span><span class='line'><span class="c">### In Dockerfile:</span>
+</span><span class='line'>RUN mkdir /etc/service/memcached
+</span><span class='line'>ADD memcached.sh /etc/service/memcached/run
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>注意</p>
+
+<ul>
+<li>デーモンは（デモナイズしたりフォークしたりするのではなく）フォアグラウンドで起動すること</li>
+<li>スクリプトは実行許可を与えること（<code>chmod +x</code>）</li>
+</ul>
+
+
+<h1>起動時にスクリプトを実行する</h1>
+
+<p>baseimage-docker では <code>/etc/my_init.d/</code> にシェルスクリプトをおくだけで、起動時に実行してくれる。</p>
+
+<p>公式よりサンプルを引用。
+起動した時間を記録するシンプルなスクリプト。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="c">### In logtime.sh (make sure this file is chmod +x):</span>
+</span><span class='line'><span class="c">#!/bin/sh</span>
+</span><span class='line'>date &gt; /tmp/boottime.txt
+</span><span class='line'>
+</span><span class='line'><span class="c">### In Dockerfile:</span>
+</span><span class='line'>RUN mkdir -p /etc/my_init.d
+</span><span class='line'>ADD logtime.sh /etc/my_init.d/logtime.sh
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>注意</p>
+
+<ul>
+<li>スクリプトは実行許可を与えること（<code>chmod +x</code>）</li>
+<li>スクリプトは必ず正常終了させること。0 以外の exit コードで終了すると起動に失敗する。</li>
+<li>スクリプトはデーモンプロセス起動 <em>前</em> に実行される</li>
+</ul>
+
+
+<h1>環境変数の管理</h1>
+
+<p>baseimage-docker は環境変数を <code>/etc/container_environment</code> にいくつかの形式でファイルとしてダンプしてくれる。
+これの何が嬉しいか。Nginx など子プロセスを生成する際にそれらに環境変数を隠してしまうサービスを利用する場合に、元々の環境変数を利用できるようになるのだ。</p>
+
+<p>詳しくは wiki を参照されたい。</p>
+
+<p><a href="https://github.com/phusion/baseimage-docker#environment-variables">phusion/baseimage-docker</a></p>
+
+<h1>SSH で接続する</h1>
+
+<p>Docker に sshd を起動するかどうかは結構議論の分かれる部分だと思う。Immutable という観点では理想的には不要なのだろう。
+が、現実的には管理のために接続の手段は用意しておいた方が便利だろう。セキュリティという観点では別のレイヤー（VPC 上のセキュリティグループなど）で担保できると思う。</p>
+
+<p>baseimage-docker ではデフォルトで sshd が起動している。</p>
+
+<p>sshd を起動したくない場合は以下を <code>Dockerfile</code> に追記しよう。</p>
+
+<figure class='code'><figcaption><span>Dockerfile</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='text'><span class='line'>RUN rm -rf /etc/service/sshd /etc/my_init.d/00_regen_ssh_host_keys.sh
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h1>nsenter の利点と欠点</h1>
+
+<p>sshd を起動するまでもなく nsenter というツールを利用すれば、docker コンテナ内でコマンドを実行することができる。</p>
+
+<p><a href="https://github.com/jpetazzo/nsenter">jpetazzo/nsenter</a></p>
+
+<h2>利点</h2>
+
+<ul>
+<li>コンテナ内で sshd の起動が必要</li>
+<li>ssh キー設定が不要</li>
+<li>どんなコンテナでも利用可能</li>
+</ul>
+
+
+<h2>欠点</h2>
+
+<ul>
+<li>nsenter によって実行されたプロセスは通常時と少々異なる振る舞いをする。例えば、コンテナ内のプロセスから kill することができない。子プロセスについても同様。</li>
+<li>nsenter プロセスがシグナルによって終了した場合（例: kill コマンドによって）nsenter によって実行されたコマンドは殺されないし、クリーンアップも行われない。</li>
+<li>別のツールを学ぶ必要がある</li>
+<li>Docker host の root 権限が必要</li>
+<li>nsenter ツールが必要</li>
+</ul>
+
+
+<p>まぁ、でも個人的には新たなツールをいれたくないので ssh で良いかなと思っている。</p>
+
+<h1><code>docker-bash</code> ツール</h1>
+
+<p>ssh で接続する際の一般的な流れは、こんなものだろう。</p>
+
+<ol>
+<li><code>docker ps</code> で実行中のコンテナ ID を調べて</li>
+<li><code>docker inspect -f "" &lt;ContainerID&gt;</code> で IP 調べて</li>
+<li><code>ssh -i /path/to/yourkey root@CONTAINER_IP_ADDR</code></li>
+</ol>
+
+
+<p>しかし <code>Dockerfile</code> を書きつつ環境構築している際にはこの手順がヒジョーに煩わしくなる。</p>
+
+<p><code>docker-bash</code> ツールを使えば手順はもっと単純になる。</p>
+
+<p>インストールも簡単だ。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='text'><span class='line'>curl --fail -L -O https://github.com/phusion/baseimage-docker/archive/master.tar.gz &amp;&amp; \
+</span><span class='line'>tar xzf master.tar.gz &amp;&amp; \
+</span><span class='line'>sudo ./baseimage-docker-master/install-tools.sh
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>実行するには</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>docker-bash YOUR-CONTAINER-ID
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>で SSH 接続できる。</p>
+
+<p>直近のコンテナ ID を取得するエイリアスを定義するともっと便利だ。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nb">alias </span><span class="nv">dl</span><span class="o">=</span><span class="s2">&quot;docker ps --latest --quiet&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>上記を <code>.bashrc</code> などに定義すると、</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>docker-bash <span class="sb">`</span>dl<span class="sb">`</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>一発で接続できる。</p>
+
+<h1>終わりに</h1>
+
+<p>Docker はクセが強く、また現時点では UNIX に関する深い知識が要求される。
+初心者が一からイメージを作るのは、練習であれば全く問題ないが、
+実用を考えるのであれば、とりあえずは <a href="https://github.com/phusion/baseimage-docker#environment-variables">phusion/baseimage-docker</a> からイメージを作ってみよう。
+オリジナルイメージを作成するのは慣れてからでも、Docker のバージョンアップを待ってからでも遅くないハズだ。</p>
+
+<p>また、Ruby や Python や Node.js を利用する場合には、同じく Phusion が用意している <a href="https://github.com/phusion/passenger-docker">phusion/passenger-docker</a> を利用すると良い。
+これは phusion/baseimage-docker を拡張したもので、様々な便利ライブラリが同梱されている（ruby, python, node.js, git, その他言語毎に必要なライブラリ）。</p>
+
+<p>Docker とは別に Nginx + Phusion Passenger でも色々とハマるのでそのうち記事を書きたいと思う。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[エンジニアから見た WWDC 2014 雑感]]></title>
